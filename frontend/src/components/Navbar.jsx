@@ -32,89 +32,69 @@ function SearchBar({ mobile = false, closeMenu }) {
 
   useEffect(() => {
     if (!debounced.trim()) {
-        queueMicrotask(() => {
-            setResults([]);
-            setOpen(false);
-        });
-        return;
+      queueMicrotask(() => {
+        setResults([]);
+        setOpen(false);
+      });
+      return;
     }
 
     let cancelled = false;
 
     queueMicrotask(() => {
-  setLoading(true);
-});
+      setLoading(true);
+    });
 
-    api.get("/movies/search", {
-      params: {
-        query: debounced,
-      },
-    })
+    api
+      .get("/movies/search", {
+        params: {
+          query: debounced,
+        },
+      })
       .then((res) => {
-
         if (cancelled) return;
 
         setResults(res.data.slice(0, 8));
         setOpen(true);
-
       })
       .finally(() => {
-
         if (!cancelled) {
           setLoading(false);
         }
-
       });
 
     return () => {
       cancelled = true;
     };
-
   }, [debounced]);
 
   useEffect(() => {
-
     function outside(e) {
-
-      if (
-        ref.current &&
-        !ref.current.contains(e.target)
-      ) {
+      if (ref.current && !ref.current.contains(e.target)) {
         setOpen(false);
       }
-
     }
 
     document.addEventListener("mousedown", outside);
 
-    return () =>
-      document.removeEventListener(
-        "mousedown",
-        outside
-      );
-
+    return () => document.removeEventListener("mousedown", outside);
   }, []);
 
   useEffect(() => {
-  function key(e) {
-    if (e.key === "/") {
-      e.preventDefault();
-      document.querySelector("input")?.focus();
+    function key(e) {
+      if (e.key === "/") {
+        e.preventDefault();
+        document.querySelector("input")?.focus();
+      }
     }
-  }
 
-  window.addEventListener("keydown", key);
+    window.addEventListener("keydown", key);
 
-  return () =>
-    window.removeEventListener("keydown", key);
-}, []);
+    return () => window.removeEventListener("keydown", key);
+  }, []);
 
   function selectMovie(movie) {
-
-    const type =
-      movie.media_type === "tv"
-        ? "tv"
-        : "movie";
+    const type = movie.media_type === "tv" ? "tv" : "movie";
 
     navigate(`/${type}/${movie.id}`);
 
@@ -125,18 +105,11 @@ function SearchBar({ mobile = false, closeMenu }) {
     if (closeMenu) {
       closeMenu();
     }
-
   }
 
   return (
-    <div
-      ref={ref}
-      className={`relative ${
-        mobile ? "w-full" : "w-64 xl:w-80 2xl:w-96"
-      }`}
-    >
+    <div ref={ref} className={`relative ${mobile ? "w-full" : "w-64 xl:w-80 2xl:w-96"}`}>
       <div className="relative">
-
         <Search
           size={18}
           className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400 animate-in fade-in zoom-in-95 duration-200"
@@ -144,9 +117,7 @@ function SearchBar({ mobile = false, closeMenu }) {
 
         <input
           value={query}
-          onChange={(e) =>
-            setQuery(e.target.value)
-          }
+          onChange={(e) => setQuery(e.target.value)}
           placeholder="Search movies or TV..."
           className="
           w-full
@@ -204,7 +175,6 @@ function SearchBar({ mobile = false, closeMenu }) {
             ✕
           </button>
         )}
-
       </div>
 
       {open && (
@@ -224,25 +194,12 @@ function SearchBar({ mobile = false, closeMenu }) {
           animate-in fade-in zoom-in-95 duration-200
           "
         >
-
-          {results.length === 0 && (
-
-            <div className="p-5 text-center text-zinc-500">
-
-              No results
-
-            </div>
-
-          )}
+          {results.length === 0 && <div className="p-5 text-center text-zinc-500">No results</div>}
 
           {results.map((item) => {
-
-            const poster = item.poster_path
-              ? `https://image.tmdb.org/t/p/w92${item.poster_path}`
-              : null;
+            const poster = item.poster_path ? `https://image.tmdb.org/t/p/w92${item.poster_path}` : null;
 
             return (
-
               <button
                 key={item.id}
                 onClick={() => selectMovie(item)}
@@ -256,7 +213,6 @@ function SearchBar({ mobile = false, closeMenu }) {
                 transition
                 "
               >
-
                 <div
                   className="
                   w-14
@@ -269,61 +225,27 @@ function SearchBar({ mobile = false, closeMenu }) {
                   justify-center
                   "
                 >
-
                   {poster ? (
-                    <img
-    src={poster}
-    alt={item.title || item.name}
-    loading="lazy"
-    className="w-full h-full object-cover"
-/>
+                    <img src={poster} alt={item.title || item.name} loading="lazy" className="w-full h-full object-cover" />
                   ) : (
-                    <Film
-                      size={22}
-                      className="text-zinc-600"
-                    />
+                    <Film size={22} className="text-zinc-600" />
                   )}
-
                 </div>
 
                 <div className="text-left flex-1">
+                  <p className="text-white font-semibold truncate">{item.title || item.name}</p>
 
-                  <p className="text-white font-semibold truncate">
-                    {item.title || item.name}
-                  </p>
-
-                  <p className="text-sm text-zinc-400">
-
-                    {(item.release_date ||
-                      item.first_air_date ||
-                      "").slice(0, 4)}
-
-                  </p>
+                  <p className="text-sm text-zinc-400">{(item.release_date || item.first_air_date || "").slice(0, 4)}</p>
 
                   <div className="flex gap-2 mt-1">
+                    <span className="text-yellow-400 text-sm">⭐ {item.vote_average.toFixed(1)}</span>
 
-                    <span className="text-yellow-400 text-sm">
-
-                      ⭐ {item.vote_average.toFixed(1)}
-
-                    </span>
-
-                    <span className="text-xs text-red-400 uppercase">
-
-                      {item.media_type}
-
-                    </span>
-
+                    <span className="text-xs text-red-400 uppercase">{item.media_type}</span>
                   </div>
-
                 </div>
-
               </button>
-
             );
-
           })}
-
         </div>
       )}
     </div>
@@ -346,37 +268,32 @@ export default function Navbar() {
 
     window.addEventListener("scroll", onScroll);
 
-    return () =>
-      window.removeEventListener(
-        "scroll",
-        onScroll
-      );
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   useEffect(() => {
-  if (mobileOpen) {
-    document.body.style.overflow = "hidden";
-  } else {
-    document.body.style.overflow = "auto";
-  }
-
-  return () => {
-    document.body.style.overflow = "auto";
-  };
-}, [mobileOpen]);
-
-useEffect(() => {
-  function resize() {
-    if (window.innerWidth >= 1024) {
-      setMobileOpen(false);
+    if (mobileOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
     }
-  }
 
-  window.addEventListener("resize", resize);
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [mobileOpen]);
 
-  return () =>
-    window.removeEventListener("resize", resize);
-}, []);
+  useEffect(() => {
+    function resize() {
+      if (window.innerWidth >= 1024) {
+        setMobileOpen(false);
+      }
+    }
+
+    window.addEventListener("resize", resize);
+
+    return () => window.removeEventListener("resize", resize);
+  }, []);
 
   function handleLogout() {
     logout();
@@ -402,20 +319,19 @@ useEffect(() => {
     },
     ...(isLoggedIn
       ? [
-    
-    {
-      name: "My List",
-      path: "/mylist",
-      icon: Heart,
-    },
-    {
-      name: "Dashboard",
-      path: "/dashboard",
-      icon: LayoutDashboard,
-    },
-  ]
-  : []),
-];
+          {
+            name: "My List",
+            path: "/mylist",
+            icon: Heart,
+          },
+          {
+            name: "Dashboard",
+            path: "/dashboard",
+            icon: LayoutDashboard,
+          },
+        ]
+      : []),
+  ];
 
   return (
     <>
@@ -428,11 +344,7 @@ useEffect(() => {
         z-50
         transition-all
         duration-300
-        ${
-          scrolled
-            ? "bg-black/95 backdrop-blur-xl shadow-xl"
-            : "bg-linear-to-b from-black/90 to-transparent"
-        }
+        ${scrolled ? "bg-black/95 backdrop-blur-xl shadow-xl" : "bg-linear-to-b from-black/90 to-transparent"}
       `}
       >
         <div
@@ -450,15 +362,14 @@ useEffect(() => {
           "
         >
           {/* Logo */}
-
           <Link
             to="/"
             className="
             text-red-600
             font-black
             text-xl
-sm:text-2xl
-lg:text-3xl
+            sm:text-2xl
+            lg:text-3xl
             tracking-wide
             "
           >
@@ -466,50 +377,32 @@ lg:text-3xl
           </Link>
 
           {/* Desktop Links */}
-
           <div className="hidden lg:flex items-center gap-5 xl:gap-8">
-
             {navItems.map((item) => {
-
               const Icon = item.icon;
 
               return (
-
                 <NavLink
                   key={item.path}
                   to={item.path}
-                  className={({ isActive }) =>
-                    `
+                  className={({ isActive }) => `
                     flex
                     items-center
                     gap-2
                     font-medium
                     transition
-                    ${
-                      isActive
-                        ? "text-red-500"
-                        : "text-zinc-300 hover:text-white"
-                    }
-                    `
-                  }
+                    ${isActive ? "text-red-500" : "text-zinc-300 hover:text-white"}
+                    `}
                 >
-
                   <Icon size={18} />
-
                   {item.name}
-
                 </NavLink>
-
               );
-
             })}
-
           </div>
 
           {/* Desktop Right */}
-
           <div className="hidden lg:flex items-center gap-5">
-
             <SearchBar />
 
             {isLoggedIn ? (
@@ -578,29 +471,20 @@ lg:text-3xl
                 </Link>
               </>
             )}
-
           </div>
 
           {/* Mobile Button */}
-
-          <button
-            onClick={() =>
-              setMobileOpen(!mobileOpen)
-            }
-            className="
-            lg:hidden
-            text-white
-            "
-          >
-            {mobileOpen ? (
-              <X size={30} />
-            ) : (
-              <Menu size={30} />
-            )}
+          <button onClick={() => setMobileOpen(!mobileOpen)} className="lg:hidden text-white">
+            {mobileOpen ? <X size={30} /> : <Menu size={30} />}
           </button>
         </div>
       </nav>
-            {/* Mobile Drawer */}
+
+      {/* Mobile Drawer */}
+      {/* FIX: drawer is now a flex column (header / scrollable body / footer)
+          instead of a bare h-screen block with an `absolute bottom-0` footer.
+          This guarantees the footer (Logout / Login buttons) always renders
+          in-flow at the bottom, regardless of how much content is above it. */}
       <div
         className={`
           fixed
@@ -613,77 +497,67 @@ lg:text-3xl
           border-l
           border-zinc-800
           z-50
+          flex
+          flex-col
           transform
           transition-all duration-500 ease-in-out
           lg:hidden
-          ${
-            mobileOpen
-              ? "translate-x-0"
-              : "translate-x-full"
-          }
+          ${mobileOpen ? "translate-x-0" : "translate-x-full"}
         `}
       >
-        {/* Header */}
-<div className="flex items-center justify-between p-5 border-b border-zinc-800">
-  {isLoggedIn ? (
-    <div className="flex items-center gap-2">
-      <div
-        className="
-          w-8
-          h-8
-          rounded-full
-          bg-red-600
-          flex
-          items-center
-          justify-center
-          font-bold
-          uppercase
-        "
-      >
-        {user.username.charAt(0).toUpperCase()}
-      </div>
+        {/* Header — FIX: X close button is now always rendered, not just for logged-out users */}
+        <div className="flex items-center justify-between p-5 border-b border-zinc-800 shrink-0">
+          {isLoggedIn ? (
+            <div className="flex items-center gap-2">
+              <div
+                className="
+                  w-8
+                  h-8
+                  rounded-full
+                  bg-red-600
+                  flex
+                  items-center
+                  justify-center
+                  font-bold
+                  uppercase
+                "
+              >
+                {user.username.charAt(0).toUpperCase()}
+              </div>
 
-      <div>
-        <p className="text-white font-semibold text-lg leading-tight">
-          {user.username}
-        </p>
+              <div>
+                <p className="text-white font-semibold text-lg leading-tight">{user.username}</p>
 
-        <p className="text-zinc-500 text-sm">
-          Welcome back
-        </p>
-      </div>
-    </div>
-  ) : (
-  <button
-    onClick={() => setMobileOpen(false)}
-    className="text-white-400 hover:text-white transition"
-  >
-    <X size={20} />
-  </button>
-  )}
-</div>
+                <p className="text-zinc-500 text-sm">Welcome back</p>
+              </div>
+            </div>
+          ) : (
+            <span className="text-white font-semibold text-lg">Menu</span>
+          )}
 
-        {/* Search */}
-        <div className="p-5 border-b border-zinc-800">
-          <SearchBar
-            mobile
-            closeMenu={() => setMobileOpen(false)}
-          />
+          <button onClick={() => setMobileOpen(false)} className="text-zinc-400 hover:text-white transition shrink-0">
+            <X size={22} />
+          </button>
         </div>
 
+        {/* Scrollable middle section — FIX: overflow-y-auto so long content never pushes the footer offscreen */}
+        <div className="flex-1 overflow-y-auto">
+          {/* Search */}
+          <div className="p-5 border-b border-zinc-800">
+            <SearchBar mobile closeMenu={() => setMobileOpen(false)} />
+          </div>
 
-        {/* Navigation */}
-        <div className="flex flex-col py-2">
-          {navItems.map((item) => {
-            const Icon = item.icon;
+          {/* Navigation */}
+          <div className="flex flex-col py-2">
+            {navItems.map((item) => {
+              const Icon = item.icon;
 
-            return (
-              <NavLink
-                key={item.path}
-                to={item.path}
-                onClick={() => setMobileOpen(false)}
-                className={({ isActive }) =>
-                  `
+              return (
+                <NavLink
+                  key={item.path}
+                  to={item.path}
+                  onClick={() => setMobileOpen(false)}
+                  className={({ isActive }) => `
                   flex
                   items-center
                   gap-3
@@ -692,23 +566,19 @@ lg:text-3xl
                   text-base
                   font-medium
                   transition
-                  ${
-                    isActive
-                      ? "bg-red-600 text-white"
-                      : "text-zinc-300 hover:bg-zinc-900 hover:text-white"
-                  }
-                  `
-                }
-              >
-                <Icon size={18} />
-                {item.name}
-              </NavLink>
-            );
-          })}
+                  ${isActive ? "bg-red-600 text-white" : "text-zinc-300 hover:bg-zinc-900 hover:text-white"}
+                  `}
+                >
+                  <Icon size={18} />
+                  {item.name}
+                </NavLink>
+              );
+            })}
+          </div>
         </div>
 
-        {/* Bottom Buttons */}
-        <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-zinc-800 animate-in fade-in zoom-in-95 duration-200">
+        {/* Footer — FIX: normal flex item (shrink-0) instead of `absolute bottom-0`, so it's always visible */}
+        <div className="p-4 border-t border-zinc-800 shrink-0 animate-in fade-in zoom-in-95 duration-200">
           {isLoggedIn ? (
             <button
               onClick={handleLogout}
@@ -769,10 +639,7 @@ lg:text-3xl
 
       {/* Overlay */}
       {mobileOpen && (
-        <div
-          className="fixed inset-0 bg-black/80 backdrop-blur-md z-40 lg:hidden"
-          onClick={() => setMobileOpen(false)}
-        />
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-md z-40 lg:hidden" onClick={() => setMobileOpen(false)} />
       )}
     </>
   );
