@@ -7,13 +7,13 @@ export default function ProtectedRoute() {
     loading,
   } = useAuth();
 
-  console.log(
-    "ProtectedRoute",
-    {
-        loading,
-        isLoggedIn,
-    }
-);
+  console.log("ProtectedRoute", {
+    loading,
+    isLoggedIn,
+    user: localStorage.getItem("user"),
+    token: localStorage.getItem("token"),
+    pathname: window.location.pathname,
+  });
 
   if (loading) {
     return (
