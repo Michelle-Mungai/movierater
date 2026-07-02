@@ -626,11 +626,11 @@ lg:text-3xl
         {/* Header */}
 <div className="flex items-center justify-between p-5 border-b border-zinc-800">
   {isLoggedIn ? (
-    <div className="flex items-center gap-3">
+    <div className="flex items-center gap-2">
       <div
         className="
-          w-11
-          h-11
+          w-8
+          h-8
           rounded-full
           bg-red-600
           flex
@@ -656,7 +656,7 @@ lg:text-3xl
   ) : (
   <button
     onClick={() => setMobileOpen(false)}
-    className="text-zinc-400 hover:text-white transition"
+    className="text-white-400 hover:text-white transition"
   >
     <X size={20} />
   </button>
@@ -708,13 +708,13 @@ lg:text-3xl
         </div>
 
         {/* Bottom Buttons */}
-        <div className="absolute bottom-0 left-0 right-0 p-6 border-t border-zinc-800 animate-in fade-in zoom-in-95 duration-200">
+        <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-zinc-800 animate-in fade-in zoom-in-95 duration-200">
           {isLoggedIn ? (
             <button
               onClick={handleLogout}
               className="
                 w-full
-                py-3
+                py-2
                 rounded-xl
                 bg-red-600
                 hover:bg-red-700
@@ -733,7 +733,7 @@ lg:text-3xl
                   block
                   w-full
                   text-center
-                  py-3
+                  py-2
                   rounded-xl
                   bg-red-600
                   hover:bg-red-700
@@ -751,7 +751,7 @@ lg:text-3xl
                   block
                   w-full
                   text-center
-                  py-3
+                  py-2
                   rounded-xl
                   border
                   border-red-600
