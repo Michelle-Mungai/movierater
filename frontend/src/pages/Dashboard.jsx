@@ -259,15 +259,7 @@ export default function Dashboard() {
 
                     </div>
 
-                    <p className="text-gray-500 text-xs sm:text-base mb-3 sm:mb-6">
-                      Reviewed by{" "}
-                      {
-                        review.username
-                      }
-                    </p>
-
                     <div className="grid sm:grid-cols-2 gap-2 sm:gap-6 mb-3 sm:mb-6">
-
                       <div>
                         <h4 className="text-green-400 text-xs sm:text-base font-semibold mb-1 sm:mb-2">
                           Positives
