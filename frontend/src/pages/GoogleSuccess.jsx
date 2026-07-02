@@ -41,6 +41,10 @@ export default function GoogleSuccess() {
 
         login(data, token);
 
+        console.log("After login:");
+console.log(localStorage.getItem("token"));
+console.log(localStorage.getItem("user"));
+
         toast.success(
           "Successfully signed in."
         );
