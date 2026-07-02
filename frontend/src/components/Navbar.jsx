@@ -686,10 +686,11 @@ lg:text-3xl
                   `
                   flex
                   items-center
-                  gap-4
+                  gap-3
                   px-6
-                  py-4
-                  text-lg
+                  py-3
+                  text-base
+                  font-medium
                   transition
                   ${
                     isActive
