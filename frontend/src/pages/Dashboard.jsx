@@ -8,6 +8,8 @@ import api from "../services/api";
 export default function Dashboard() {
   const { user } = useAuth();
 
+  console.log("Dashboard user:", user);
+
   const mountedRef = useRef(false);
 
   const [reviews, setReviews] = useState([]);
