@@ -43,10 +43,6 @@ export default function MovieRow({ title, movies = [] }) {
         >
           {title}
         </h2>
-
-        <span className="text-zinc-500 text-xs sm:text-sm">
-          {movies.length} titles
-        </span>
       </div>
 
       {/* Left Arrow */}

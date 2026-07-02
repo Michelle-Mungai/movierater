@@ -65,14 +65,9 @@ export default function Register() {
 
           <div className="text-center mb-8">
 
-            <h1 className="text-3xl sm:text-4xl font-black text-white">
+            <h2 className="text-3xl sm:text-4xl font-black text-white">
               Create Account
-            </h1>
-
-            <p className="text-gray-400 mt-2">
-              Join MovieRater and start reviewing movies.
-            </p>
-
+            </h2>
           </div>
 
           <button

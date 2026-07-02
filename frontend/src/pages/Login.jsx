@@ -86,10 +86,6 @@ export default function Login() {
             <h1 className="text-4xl font-black text-white">
               Welcome Back
             </h1>
-
-            <p className="text-gray-400 mt-2">
-              Login to continue.
-            </p>
           </div>
 
           <button

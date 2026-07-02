@@ -409,6 +409,14 @@ useEffect(() => {
     : null;
 
   function addToList() {
+  // FIXED: guests could previously write straight to localStorage with
+  // no auth check. Now unauthenticated users are sent to /login instead.
+  if (!isLoggedIn) {
+    toast("Please sign in to add to your list.");
+    navigate("/login");
+    return;
+  }
+
   const list =
     JSON.parse(localStorage.getItem("myList")) || [];
 
@@ -628,7 +636,7 @@ transition"
 
           {showTrailer && (
   <div
-    className="fixed inset-0 bg-black/95 backdrop-blur-md z-[9999] flex items-center justify-center p-4"
+    className="fixed inset-0 bg-black/95 backdrop-blur-md z-9999 flex items-center justify-center p-4"
     onClick={() => setShowTrailer(false)}
   >
     <div
@@ -648,7 +656,7 @@ transition"
           text-white
           text-xl sm:text-2xl
           font-bold
-          z-[10000]
+          z-10000
           flex items-center justify-center
         "
       >

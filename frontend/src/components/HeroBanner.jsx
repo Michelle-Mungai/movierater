@@ -1,8 +1,14 @@
 import { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import api from "../services/api";
 import toast from "react-hot-toast";
+import { useAuth } from "../context/useAuth";
 
 export default function HeroBanner({ movies = [] }) {
+  const navigate = useNavigate();
+  const { user } = useAuth();
+  const isLoggedIn = !!user;
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [autoPlay, setAutoPlay] = useState(true);
   const [loadingTrailer, setLoadingTrailer] = useState(false);
@@ -187,6 +193,14 @@ export default function HeroBanner({ movies = [] }) {
   /* ---------------------------------- */
 
   const addToList = () => {
+    // FIX: guests were able to write straight to localStorage. Now we
+    // require login first and send them to /login if they're not signed in.
+    if (!isLoggedIn) {
+      toast("Please sign in to add to your list.");
+      navigate("/login");
+      return;
+    }
+
     const list =
       JSON.parse(localStorage.getItem("myList")) || [];
 
