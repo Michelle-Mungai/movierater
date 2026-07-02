@@ -7,6 +7,14 @@ export default function ProtectedRoute() {
     loading,
   } = useAuth();
 
+  console.log(
+    "ProtectedRoute",
+    {
+        loading,
+        isLoggedIn,
+    }
+);
+
   if (loading) {
     return (
       <div className="min-h-screen bg-black flex items-center justify-center">
