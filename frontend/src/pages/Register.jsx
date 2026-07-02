@@ -4,6 +4,8 @@ import { useAuth } from "../context/useAuth";
 import api from "../services/api";
 import toast from "react-hot-toast";
 
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 export default function Register() {
   const navigate = useNavigate();
   const { login } = useAuth();
@@ -19,6 +21,10 @@ export default function Register() {
 
     if (!username || !email || !password) {
       return toast.error("Please fill in all fields.");
+    }
+
+    if (!EMAIL_REGEX.test(email.trim())) {
+      return toast.error("Please enter a valid email address.");
     }
 
     try {
@@ -57,17 +63,20 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen bg-black flex items-center justify-center px-4 py-10">
+    <div className="min-h-screen bg-black flex items-center justify-center px-4 py-8">
 
-      <div className="w-full max-w-md">
+      <div className="w-full max-w-sm">
 
-        <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 sm:p-8 shadow-2xl">
+        <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 sm:p-7 shadow-2xl">
 
-          <div className="text-center mb-8">
+          <div className="text-center mb-6">
 
-            <h2 className="text-3xl sm:text-4xl font-black text-white">
-              Create Account
+            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white">
+              Create account
             </h2>
+            <p className="text-gray-500 text-sm mt-1">
+              Join to start rating and reviewing
+            </p>
           </div>
 
           <button
@@ -78,42 +87,43 @@ export default function Register() {
               flex
               items-center
               justify-center
-              gap-3
+              gap-2
               bg-white
               hover:bg-gray-100
               text-black
+              text-sm
               font-semibold
-              py-3
-              rounded-xl
+              py-2.5
+              rounded-lg
               transition
-              mb-6
+              mb-5
             "
           >
             <img
               src="https://www.svgrepo.com/show/475656/google-color.svg"
               alt="Google"
-              className="w-5 h-5"
+              className="w-4 h-4"
             />
 
             Sign up with Google
           </button>
 
-          <div className="flex items-center mb-6">
+          <div className="flex items-center mb-5">
             <div className="flex-1 h-px bg-zinc-700" />
-            <span className="px-3 text-gray-500 text-sm">
-              OR
+            <span className="px-3 text-gray-500 text-xs uppercase tracking-wide">
+              Or
             </span>
             <div className="flex-1 h-px bg-zinc-700" />
           </div>
 
           <form
             onSubmit={handleSubmit}
-            className="space-y-5"
+            className="space-y-4"
           >
 
             <div>
 
-              <label className="block text-gray-300 mb-2">
+              <label className="block text-gray-400 text-xs font-medium mb-1.5">
                 Username
               </label>
 
@@ -129,11 +139,14 @@ export default function Register() {
                   bg-zinc-800
                   border
                   border-zinc-700
-                  rounded-xl
-                  p-3
+                  rounded-lg
+                  py-2.5
+                  px-3.5
+                  text-sm
                   text-white
                   focus:outline-none
                   focus:border-red-500
+                  transition
                 "
               />
 
@@ -141,7 +154,7 @@ export default function Register() {
 
             <div>
 
-              <label className="block text-gray-300 mb-2">
+              <label className="block text-gray-400 text-xs font-medium mb-1.5">
                 Email
               </label>
 
@@ -157,11 +170,14 @@ export default function Register() {
                   bg-zinc-800
                   border
                   border-zinc-700
-                  rounded-xl
-                  p-3
+                  rounded-lg
+                  py-2.5
+                  px-3.5
+                  text-sm
                   text-white
                   focus:outline-none
                   focus:border-red-500
+                  transition
                 "
               />
 
@@ -169,7 +185,7 @@ export default function Register() {
 
             <div>
 
-              <label className="block text-gray-300 mb-2">
+              <label className="block text-gray-400 text-xs font-medium mb-1.5">
                 Password
               </label>
 
@@ -185,11 +201,14 @@ export default function Register() {
                   bg-zinc-800
                   border
                   border-zinc-700
-                  rounded-xl
-                  p-3
+                  rounded-lg
+                  py-2.5
+                  px-3.5
+                  text-sm
                   text-white
                   focus:outline-none
                   focus:border-red-500
+                  transition
                 "
               />
 
@@ -204,22 +223,23 @@ export default function Register() {
                 hover:bg-red-700
                 disabled:opacity-60
                 text-white
-                font-bold
-                py-3
-                rounded-xl
+                text-sm
+                font-semibold
+                py-2.5
+                rounded-lg
                 transition
               "
             >
-              {loading ? "Creating Account..." : "Create Account"}
+              {loading ? "Creating account..." : "Create account"}
             </button>
 
           </form>
 
-          <p className="text-center text-gray-400 mt-8">
+          <p className="text-center text-gray-500 text-sm mt-6">
             Already have an account?{" "}
             <Link
               to="/login"
-              className="text-red-500 hover:text-red-400"
+              className="text-red-500 hover:text-red-400 font-medium"
             >
               Login
             </Link>
