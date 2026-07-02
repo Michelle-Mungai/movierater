@@ -497,16 +497,15 @@ export default function Navbar() {
           border-l
           border-zinc-800
           z-50
-          flex
-          flex-col
+          overflow-y-auto
           transform
           transition-all duration-500 ease-in-out
           lg:hidden
           ${mobileOpen ? "translate-x-0" : "translate-x-full"}
         `}
       >
-        {/* Header — FIX: X close button is now always rendered, not just for logged-out users */}
-        <div className="flex items-center justify-between p-5 border-b border-zinc-800 shrink-0">
+        {/* Header — X close button is always rendered, not just for logged-out users */}
+        <div className="flex items-center justify-between p-5 border-b border-zinc-800">
           {isLoggedIn ? (
             <div className="flex items-center gap-2">
               <div
@@ -540,24 +539,22 @@ export default function Navbar() {
           </button>
         </div>
 
-        {/* Scrollable middle section — FIX: overflow-y-auto so long content never pushes the footer offscreen */}
-        <div className="flex-1 overflow-y-auto">
-          {/* Search */}
-          <div className="p-5 border-b border-zinc-800">
-            <SearchBar mobile closeMenu={() => setMobileOpen(false)} />
-          </div>
+        {/* Search */}
+        <div className="p-5 border-b border-zinc-800">
+          <SearchBar mobile closeMenu={() => setMobileOpen(false)} />
+        </div>
 
-          {/* Navigation */}
-          <div className="flex flex-col py-2">
-            {navItems.map((item) => {
-              const Icon = item.icon;
+        {/* Navigation */}
+        <div className="flex flex-col py-2">
+          {navItems.map((item) => {
+            const Icon = item.icon;
 
-              return (
-                <NavLink
-                  key={item.path}
-                  to={item.path}
-                  onClick={() => setMobileOpen(false)}
-                  className={({ isActive }) => `
+            return (
+              <NavLink
+                key={item.path}
+                to={item.path}
+                onClick={() => setMobileOpen(false)}
+                className={({ isActive }) => `
                   flex
                   items-center
                   gap-3
@@ -568,17 +565,18 @@ export default function Navbar() {
                   transition
                   ${isActive ? "bg-red-600 text-white" : "text-zinc-300 hover:bg-zinc-900 hover:text-white"}
                   `}
-                >
-                  <Icon size={18} />
-                  {item.name}
-                </NavLink>
-              );
-            })}
-          </div>
+              >
+                <Icon size={18} />
+                {item.name}
+              </NavLink>
+            );
+          })}
         </div>
 
-        {/* Footer — FIX: normal flex item (shrink-0) instead of `absolute bottom-0`, so it's always visible */}
-        <div className="p-4 border-t border-zinc-800 shrink-0 animate-in fade-in zoom-in-95 duration-200">
+        {/* Footer — FIX: sits in normal document flow directly below Dashboard,
+            instead of being pinned to the bottom of a 100vh box (which is taller
+            than the visible mobile viewport once the browser address bar is shown). */}
+        <div className="p-4 border-t border-zinc-800">
           {isLoggedIn ? (
             <button
               onClick={handleLogout}
