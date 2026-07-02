@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import Navbar from "../components/Navbar";
 import { useAuth } from "../context/useAuth";
@@ -93,10 +93,9 @@ export default function Dashboard() {
 
   if (!user) {
     return (
-      <Navigate
-        to="/login"
-        replace
-      />
+      <div className="bg-black min-h-screen flex items-center justify-center">
+      <div className="w-14 h-14 border-4 border-red-600 border-t-transparent rounded-full animate-spin" />
+    </div>
     );
   }
 
