@@ -1,14 +1,17 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-
+import { useLocation } from "react-router-dom";
 import api from "../services/api";
 import { useAuth } from "../context/useAuth";
 
 export default function GoogleSuccess() {
   const { login } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
+  console.log(location.pathname);
+  
   useEffect(() => {
     let mounted = true;
 
@@ -49,6 +52,8 @@ console.log(localStorage.getItem("user"));
         toast.success(
           "Successfully signed in."
         );
+
+        await Promise.resolve();
 
         navigate("/dashboard", {
           replace: true,
