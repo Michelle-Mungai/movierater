@@ -11,7 +11,7 @@ export default function GoogleSuccess() {
   const location = useLocation();
 
   console.log(location.pathname);
-  
+
   useEffect(() => {
     let mounted = true;
 
@@ -55,9 +55,12 @@ console.log(localStorage.getItem("user"));
 
         await Promise.resolve();
 
-        navigate("/dashboard", {
-          replace: true,
-        });
+        console.log("Navigating to dashboard...");
+
+        window.location.replace("/dashboard");
+
+        console.log("Navigate called");
+
       } catch (err) {
         console.error(err);
 
