@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import toast from "react-hot-toast";
 import api from "../services/api";
 import RatingStars from "./RatingStars";
@@ -15,6 +15,27 @@ const CATEGORIES = [
 const defaultRatings = Object.fromEntries(
   CATEGORIES.map((c) => [c.key, 5])
 );
+
+// Small read-only 10-segment star bar for displaying the computed overall
+// score (no onChange — this value isn't directly editable by the user).
+function ReadOnlyStars({ value }) {
+  const rounded = Math.round(value);
+
+  return (
+    <div className="flex gap-0.5">
+      {Array.from({ length: 10 }).map((_, i) => (
+        <span
+          key={i}
+          className={
+            i < rounded ? "text-yellow-400" : "text-zinc-700"
+          }
+        >
+          ★
+        </span>
+      ))}
+    </div>
+  );
+}
 
 export default function ReviewForm({
   movie,
@@ -34,10 +55,6 @@ export default function ReviewForm({
           ])
         )
       : defaultRatings
-  );
-
-  const [overall, setOverall] = useState(
-    isEditing ? existingReview.overall : 5
   );
 
   const [positives, setPositives] = useState(
@@ -61,6 +78,15 @@ export default function ReviewForm({
     }));
   };
 
+  // CHANGED: overall is no longer a separate manual input. It's derived
+  // from the average of the six category scores, updating live as the
+  // user adjusts them.
+  const overall = useMemo(() => {
+    const values = CATEGORIES.map((c) => ratings[c.key]);
+    const avg = values.reduce((sum, v) => sum + v, 0) / values.length;
+    return Math.round(avg * 10) / 10;
+  }, [ratings]);
+
   const submit = async (e) => {
     e.preventDefault();
 
@@ -81,6 +107,11 @@ export default function ReviewForm({
       return;
     }
 
+    // overall is stored as a whole number (1-10) to match the rest of the
+    // schema/display, even though we compute it with one decimal of
+    // precision for a more accurate live preview.
+    const overallToSubmit = Math.round(overall);
+
     try {
       setSubmitting(true);
 
@@ -88,7 +119,7 @@ export default function ReviewForm({
         await api.put(
           `/reviews/${existingReview.id}`,
           {
-            overall,
+            overall: overallToSubmit,
             positives,
             negatives,
             recommendation,
@@ -110,7 +141,7 @@ export default function ReviewForm({
             media_type: mediaType,
             title: movie.title || movie.name,
             poster: movie.poster_path,
-            overall,
+            overall: overallToSubmit,
             positives,
             negatives,
             recommendation,
@@ -126,7 +157,6 @@ export default function ReviewForm({
         toast.success("Review submitted!");
 
         setRatings(defaultRatings);
-        setOverall(5);
         setPositives("");
         setNegatives("");
         setRecommendation(true);
@@ -150,20 +180,20 @@ export default function ReviewForm({
       bg-zinc-900
       border border-zinc-800
       rounded-2xl
-      p-4
-      sm:p-6
-      lg:p-8
-      space-y-8
+      p-3
+      sm:p-5
+      space-y-4
+      sm:space-y-5
       shadow-xl
       "
     >
       {/* Header */}
-      <div className="space-y-2">
-        <h2 className="text-2xl sm:text-3xl font-bold text-white">
+      <div className="space-y-1">
+        <h2 className="text-base sm:text-lg font-bold text-white">
           {isEditing ? "Edit Your Review" : "Write a Review"}
         </h2>
 
-        <p className="text-sm text-zinc-400">
+        <p className="text-xs sm:text-sm text-zinc-400">
           {isEditing
             ? "Update your ratings and thoughts."
             : "Share your thoughts and help other movie lovers."}
@@ -171,23 +201,24 @@ export default function ReviewForm({
       </div>
 
       {/* Ratings */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5 sm:gap-3">
         {CATEGORIES.map(({ key, label }) => (
           <div
             key={key}
             className="
             bg-zinc-800/50
-            rounded-xl
-            p-4
+            rounded-lg
+            p-2.5
+            sm:p-3
             border border-zinc-700
             "
           >
-            <div className="flex items-center justify-between mb-3">
-              <p className="text-white font-semibold">
+            <div className="flex items-center justify-between mb-2">
+              <p className="text-white text-xs sm:text-sm font-medium">
                 {label}
               </p>
 
-              <span className="text-yellow-400 font-bold text-lg">
+              <span className="text-yellow-400 font-bold text-xs sm:text-sm">
                 {ratings[key]}/10
               </span>
             </div>
@@ -203,43 +234,39 @@ export default function ReviewForm({
         ))}
       </div>
 
-      {/* Overall */}
-      <div className="border-t border-zinc-700 pt-8">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-5">
+      {/* Overall — computed, not editable */}
+      <div className="border-t border-zinc-700 pt-4 sm:pt-5">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-2.5">
           <div>
-            <h3 className="text-xl font-bold text-white">
+            <h3 className="text-sm sm:text-base font-bold text-white">
               Overall Rating
             </h3>
 
-            <p className="text-zinc-400 text-sm">
-              Your final score
+            <p className="text-zinc-500 text-xs">
+              Average of your six ratings above
             </p>
           </div>
 
-          <div className="text-4xl font-black text-yellow-400">
-            {overall}
-            <span className="text-xl text-zinc-500">
+          <div className="text-xl sm:text-2xl font-bold text-yellow-400">
+            {overall.toFixed(1)}
+            <span className="text-sm text-zinc-500">
               /10
             </span>
           </div>
         </div>
 
-        <RatingStars
-          value={overall}
-          onChange={setOverall}
-          size="lg"
-        />
+        <ReadOnlyStars value={overall} />
       </div>
 
       {/* Review Text */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4">
         <div>
-          <label className="block text-sm font-semibold text-green-400 mb-2">
+          <label className="block text-xs sm:text-sm font-semibold text-green-400 mb-1.5">
             👍 What did you like?
           </label>
 
           <textarea
-            rows={6}
+            rows={4}
             value={positives}
             onChange={(e) =>
               setPositives(e.target.value)
@@ -249,8 +276,9 @@ export default function ReviewForm({
             w-full
             bg-zinc-800
             border border-zinc-700
-            rounded-xl
-            p-4
+            rounded-lg
+            p-3
+            text-sm
             text-white
             placeholder:text-zinc-500
             resize-none
@@ -262,12 +290,12 @@ export default function ReviewForm({
         </div>
 
         <div>
-          <label className="block text-sm font-semibold text-red-400 mb-2">
+          <label className="block text-xs sm:text-sm font-semibold text-red-400 mb-1.5">
             👎 What could be improved?
           </label>
 
           <textarea
-            rows={6}
+            rows={4}
             value={negatives}
             onChange={(e) =>
               setNegatives(e.target.value)
@@ -277,8 +305,9 @@ export default function ReviewForm({
             w-full
             bg-zinc-800
             border border-zinc-700
-            rounded-xl
-            p-4
+            rounded-lg
+            p-3
+            text-sm
             text-white
             placeholder:text-zinc-500
             resize-none
@@ -295,8 +324,9 @@ export default function ReviewForm({
         className="
         bg-zinc-800
         border border-zinc-700
-        rounded-xl
-        p-5
+        rounded-lg
+        p-3
+        sm:p-4
         flex
         items-center
         justify-between
@@ -304,11 +334,11 @@ export default function ReviewForm({
         "
       >
         <div>
-          <h3 className="font-semibold text-white">
+          <h3 className="text-sm sm:text-base font-semibold text-white">
             Would you recommend this?
           </h3>
 
-          <p className="text-zinc-400 text-sm">
+          <p className="text-zinc-500 text-xs">
             Let other users know if it's worth watching.
           </p>
         </div>
@@ -320,10 +350,13 @@ export default function ReviewForm({
           }
           className={`
           relative
-          w-16
-          h-8
+          w-12
+          h-6
+          sm:w-14
+          sm:h-7
           rounded-full
           transition
+          shrink-0
           ${
             recommendation
               ? "bg-red-600"
@@ -334,16 +367,18 @@ export default function ReviewForm({
           <span
             className={`
             absolute
-            top-1
-            left-1
-            w-6
-            h-6
+            top-0.5
+            left-0.5
+            w-5
+            h-5
+            sm:w-6
+            sm:h-6
             rounded-full
             bg-white
             transition
             ${
               recommendation
-                ? "translate-x-8"
+                ? "translate-x-6 sm:translate-x-7"
                 : ""
             }
             `}
@@ -357,10 +392,12 @@ export default function ReviewForm({
           disabled={submitting}
           className="
           flex-1
-          py-4
-          rounded-xl
-          font-bold
-          text-lg
+          py-2.5
+          sm:py-3
+          rounded-lg
+          font-semibold
+          text-sm
+          sm:text-base
           bg-red-600
           hover:bg-red-700
           disabled:opacity-50
@@ -384,11 +421,14 @@ export default function ReviewForm({
             type="button"
             onClick={onCancel}
             className="
-            px-6
-            py-4
-            rounded-xl
-            font-bold
-            text-lg
+            px-4
+            sm:px-6
+            py-2.5
+            sm:py-3
+            rounded-lg
+            font-semibold
+            text-sm
+            sm:text-base
             bg-zinc-800
             hover:bg-zinc-700
             transition
