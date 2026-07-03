@@ -63,18 +63,18 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen bg-black flex items-center justify-center px-4 py-8">
+    <div className="min-h-screen bg-[var(--bg-primary)] flex items-center justify-center px-4 py-8">
 
       <div className="w-full max-w-sm">
 
-        <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 sm:p-7 shadow-2xl">
+        <div className="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-2xl p-6 sm:p-7 shadow-2xl">
 
           <div className="text-center mb-6">
 
-            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white">
+            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-[var(--text-primary)]">
               Create account
             </h2>
-            <p className="text-gray-500 text-sm mt-1">
+            <p className="text-[var(--text-muted)] text-sm mt-1">
               Join to start rating and reviewing
             </p>
           </div>
@@ -87,9 +87,9 @@ export default function Register() {
               flex
               items-center
               justify-center
-              gap-2
+              gap-1
               bg-white
-              hover:bg-gray-100
+              hover:bg-gray-600
               text-black
               text-sm
               font-semibold
@@ -109,11 +109,11 @@ export default function Register() {
           </button>
 
           <div className="flex items-center mb-5">
-            <div className="flex-1 h-px bg-zinc-700" />
-            <span className="px-3 text-gray-500 text-xs uppercase tracking-wide">
+            <div className="flex-1 h-px bg-[var(--bg-card-hover)]" />
+            <span className="px-3 text-[var(--text-muted)] text-xs uppercase tracking-wide">
               Or
             </span>
-            <div className="flex-1 h-px bg-zinc-700" />
+            <div className="flex-1 h-px bg-[var(--bg-card-hover)]" />
           </div>
 
           <form
@@ -123,7 +123,7 @@ export default function Register() {
 
             <div>
 
-              <label className="block text-gray-400 text-xs font-medium mb-1.5">
+              <label className="block text-[var(--text-secondary)] text-xs font-medium mb-1.5">
                 Username
               </label>
 
@@ -136,16 +136,16 @@ export default function Register() {
                 placeholder="MovieFan"
                 className="
                   w-full
-                  bg-zinc-800
+                  bg-[var(--bg-card-hover)]
                   border
-                  border-zinc-700
+                  border-[var(--border-color)]
                   rounded-lg
                   py-2.5
                   px-3.5
                   text-sm
-                  text-white
+                  text-[var(--text-primary)]
                   focus:outline-none
-                  focus:border-red-500
+                  focus:border-[var(--accent)]
                   transition
                 "
               />
@@ -154,7 +154,7 @@ export default function Register() {
 
             <div>
 
-              <label className="block text-gray-400 text-xs font-medium mb-1.5">
+              <label className="block text-[var(--text-secondary)] text-xs font-medium mb-1.5">
                 Email
               </label>
 
@@ -167,16 +167,16 @@ export default function Register() {
                 placeholder="john@example.com"
                 className="
                   w-full
-                  bg-zinc-800
+                  bg-[var(--bg-card-hover)]
                   border
-                  border-zinc-700
+                  border-[var(--border-color)]
                   rounded-lg
                   py-2.5
                   px-3.5
                   text-sm
-                  text-white
+                  text-[var(--text-primary)]
                   focus:outline-none
-                  focus:border-red-500
+                  focus:border-[var(--accent)]
                   transition
                 "
               />
@@ -185,7 +185,7 @@ export default function Register() {
 
             <div>
 
-              <label className="block text-gray-400 text-xs font-medium mb-1.5">
+              <label className="block text-[var(--text-secondary)] text-xs font-medium mb-1.5">
                 Password
               </label>
 
@@ -198,16 +198,16 @@ export default function Register() {
                 placeholder="Minimum 6 characters"
                 className="
                   w-full
-                  bg-zinc-800
+                  bg-[var(--bg-card-hover)]
                   border
-                  border-zinc-700
+                  border-[var(--border-color)]
                   rounded-lg
                   py-2.5
                   px-3.5
                   text-sm
-                  text-white
+                  text-[var(--text-primary)]
                   focus:outline-none
-                  focus:border-red-500
+                  focus:border-[var(--accent)]
                   transition
                 "
               />
@@ -219,10 +219,10 @@ export default function Register() {
               disabled={loading}
               className="
                 w-full
-                bg-red-600
-                hover:bg-red-700
+                bg-[var(--accent)]
+                hover:bg-[var(--accent-hover)]
                 disabled:opacity-60
-                text-white
+                text-[var(--text-primary)]
                 text-sm
                 font-semibold
                 py-2.5
@@ -235,11 +235,11 @@ export default function Register() {
 
           </form>
 
-          <p className="text-center text-gray-500 text-sm mt-6">
+          <p className="text-center text-[var(--text-muted)] text-sm mt-6">
             Already have an account?{" "}
             <Link
               to="/login"
-              className="text-red-500 hover:text-red-400 font-medium"
+              className="text-[var(--accent)] hover:text-[var(--accent)] font-medium"
             >
               Login
             </Link>

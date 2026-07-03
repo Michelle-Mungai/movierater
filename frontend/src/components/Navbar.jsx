@@ -1,7 +1,8 @@
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
-import { Menu, X, Search, Film, Tv, Home, LayoutDashboard, Heart } from "lucide-react";
+import { Menu, X, Search, Film, Tv, Home, LayoutDashboard, Heart, Sun, Moon } from "lucide-react";
 import { useAuth } from "../context/useAuth";
+import { useTheme } from "../context/useTheme";
 import api from "../services/api";
 
 function useDebounce(value, delay) {
@@ -112,7 +113,7 @@ function SearchBar({ mobile = false, closeMenu }) {
       <div className="relative">
         <Search
           size={18}
-          className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400 animate-in fade-in zoom-in-95 duration-200"
+          className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--text-secondary)] animate-in fade-in zoom-in-95 duration-200"
         />
 
         <input
@@ -121,17 +122,17 @@ function SearchBar({ mobile = false, closeMenu }) {
           placeholder="Search movies or TV..."
           className="
           w-full
-          bg-zinc-900/90
+          bg-[var(--input-bg)]
           border
-          border-zinc-700
+          border-[var(--border-color)]
           rounded-full
           py-2.5
           pl-10
           pr-10
-          text-white
-          placeholder:text-zinc-500
+          text-[var(--text-primary)]
+          placeholder:text-[var(--text-muted)]
           focus:outline-none
-          focus:border-red-500
+          focus:border-[var(--accent)]
           transition
           "
         />
@@ -167,8 +168,8 @@ function SearchBar({ mobile = false, closeMenu }) {
             right-3
             top-1/2
             -translate-y-1/2
-            text-zinc-400
-            hover:text-white
+            text-[var(--text-secondary)]
+            hover:text-[var(--text-primary)]
             animate-in fade-in zoom-in-95 duration-200
             "
           >
@@ -184,9 +185,9 @@ function SearchBar({ mobile = false, closeMenu }) {
           top-full
           mt-3
           w-full
-          bg-zinc-950
+          bg-[var(--bg-secondary)]
           border
-          border-zinc-800
+          border-[var(--border-color)]
           rounded-2xl
           overflow-hidden
           shadow-2xl
@@ -194,7 +195,7 @@ function SearchBar({ mobile = false, closeMenu }) {
           animate-in fade-in zoom-in-95 duration-200
           "
         >
-          {results.length === 0 && <div className="p-5 text-center text-zinc-500">No results</div>}
+          {results.length === 0 && <div className="p-5 text-center text-[var(--text-muted)]">No results</div>}
 
           {results.map((item) => {
             const poster = item.poster_path ? `https://image.tmdb.org/t/p/w92${item.poster_path}` : null;
@@ -209,7 +210,7 @@ function SearchBar({ mobile = false, closeMenu }) {
                 items-center
                 gap-3
                 p-3
-                hover:bg-zinc-900
+                hover:bg-[var(--bg-card)]
                 transition
                 "
               >
@@ -218,7 +219,7 @@ function SearchBar({ mobile = false, closeMenu }) {
                   w-14
                   h-20
                   rounded
-                  bg-zinc-800
+                  bg-[var(--bg-card-hover)]
                   overflow-hidden
                   flex
                   items-center
@@ -228,19 +229,19 @@ function SearchBar({ mobile = false, closeMenu }) {
                   {poster ? (
                     <img src={poster} alt={item.title || item.name} loading="lazy" className="w-full h-full object-cover" />
                   ) : (
-                    <Film size={22} className="text-zinc-600" />
+                    <Film size={22} className="text-[var(--text-muted)]" />
                   )}
                 </div>
 
                 <div className="text-left flex-1">
-                  <p className="text-white font-semibold truncate">{item.title || item.name}</p>
+                  <p className="text-[var(--text-primary)] font-semibold truncate">{item.title || item.name}</p>
 
-                  <p className="text-sm text-zinc-400">{(item.release_date || item.first_air_date || "").slice(0, 4)}</p>
+                  <p className="text-sm text-[var(--text-secondary)]">{(item.release_date || item.first_air_date || "").slice(0, 4)}</p>
 
                   <div className="flex gap-2 mt-1">
                     <span className="text-yellow-400 text-sm">⭐ {item.vote_average.toFixed(1)}</span>
 
-                    <span className="text-xs text-red-400 uppercase">{item.media_type}</span>
+                    <span className="text-xs text-[var(--accent)] uppercase">{item.media_type}</span>
                   </div>
                 </div>
               </button>
@@ -249,6 +250,37 @@ function SearchBar({ mobile = false, closeMenu }) {
         </div>
       )}
     </div>
+  );
+}
+
+function ThemeToggle({ className = "", onImage = false }) {
+  const { theme, toggleTheme } = useTheme();
+  const isLight = theme === "light";
+
+  return (
+    <button
+      onClick={toggleTheme}
+      aria-label={isLight ? "Switch to dark mode" : "Switch to light mode"}
+      title={isLight ? "Switch to dark mode" : "Switch to light mode"}
+      className={`
+      flex
+      items-center
+      justify-center
+      w-10
+      h-10
+      rounded-full
+      border
+      transition
+      ${
+        onImage
+          ? "border-white/40 text-white hover:border-[var(--accent)] hover:text-[var(--accent)]"
+          : "border-[var(--border-color)] text-[var(--text-primary)] hover:border-[var(--accent)] hover:text-[var(--accent)]"
+      }
+      ${className}
+      `}
+    >
+      {isLight ? <Moon size={18} /> : <Sun size={18} />}
+    </button>
   );
 }
 
@@ -344,7 +376,7 @@ export default function Navbar() {
         z-50
         transition-all
         duration-300
-        ${scrolled ? "bg-black/95 backdrop-blur-xl shadow-xl" : "bg-linear-to-b from-black/90 to-transparent"}
+        ${scrolled ? "bg-[var(--bg-primary)]/95 backdrop-blur-xl shadow-xl" : "bg-linear-to-b from-black/60 to-transparent"}
       `}
       >
         <div
@@ -365,7 +397,7 @@ export default function Navbar() {
           <Link
             to="/"
             className="
-            text-red-600
+            text-[var(--accent)]
             font-black
             text-xl
             sm:text-2xl
@@ -391,7 +423,13 @@ export default function Navbar() {
                     gap-2
                     font-medium
                     transition
-                    ${isActive ? "text-red-500" : "text-zinc-300 hover:text-white"}
+                    ${
+                      isActive
+                        ? "text-[var(--accent)]"
+                        : scrolled
+                        ? "text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
+                        : "text-gray-200 hover:text-white"
+                    }
                     `}
                 >
                   <Icon size={18} />
@@ -405,6 +443,8 @@ export default function Navbar() {
           <div className="hidden lg:flex items-center gap-5">
             <SearchBar />
 
+            <ThemeToggle onImage={!scrolled} />
+
             {isLoggedIn ? (
               <>
                 <div
@@ -412,7 +452,8 @@ export default function Navbar() {
                   w-10
                   h-10
                   rounded-full
-                  bg-red-600
+                  bg-[var(--accent)]
+                  text-white
                   flex
                   items-center
                   justify-center
@@ -425,15 +466,18 @@ export default function Navbar() {
 
                 <button
                   onClick={handleLogout}
-                  className="
+                  className={`
                   px-5
                   py-2
                   rounded-full
                   border
-                  border-zinc-700
-                  hover:bg-red-600
                   transition
-                  "
+                  ${
+                    scrolled
+                      ? "border-[var(--border-color)] text-[var(--text-primary)] hover:bg-[var(--accent)] hover:border-[var(--accent)] hover:text-white"
+                      : "border-white/40 text-white hover:bg-[var(--accent)] hover:border-[var(--accent)]"
+                  }
+                  `}
                 >
                   Logout
                 </button>
@@ -446,8 +490,9 @@ export default function Navbar() {
                   px-5
                   py-2
                   rounded-full
-                  bg-red-600
-                  hover:bg-red-700
+                  bg-[var(--accent)]
+                  hover:bg-[var(--accent-hover)]
+                  text-white
                   transition
                   "
                 >
@@ -456,16 +501,20 @@ export default function Navbar() {
 
                 <Link
                   to="/register"
-                  className="
+                  className={`
                   px-5
                   py-2
                   rounded-full
                   border
-                  text-white
-                  border-red-600
-                  hover:bg-red-600
+                  hover:bg-[var(--accent)]
+                  hover:text-white
                   transition
-                  "
+                  ${
+                    scrolled
+                      ? "text-[var(--text-primary)] border-[var(--accent)]"
+                      : "text-white border-white/60"
+                  }
+                  `}
                 >
                   Register
                 </Link>
@@ -474,17 +523,13 @@ export default function Navbar() {
           </div>
 
           {/* Mobile Button */}
-          <button onClick={() => setMobileOpen(!mobileOpen)} className="lg:hidden text-white">
+          <button onClick={() => setMobileOpen(!mobileOpen)} className={scrolled ? "lg:hidden text-[var(--text-primary)]" : "lg:hidden text-white"}>
             {mobileOpen ? <X size={30} /> : <Menu size={30} />}
           </button>
         </div>
       </nav>
 
       {/* Mobile Drawer */}
-      {/* FIX: drawer is now a flex column (header / scrollable body / footer)
-          instead of a bare h-screen block with an `absolute bottom-0` footer.
-          This guarantees the footer (Logout / Login buttons) always renders
-          in-flow at the bottom, regardless of how much content is above it. */}
       <div
         className={`
           fixed
@@ -493,9 +538,9 @@ export default function Navbar() {
           h-screen
           w-full
           max-w-sm
-          bg-zinc-950
+          bg-[var(--bg-secondary)]
           border-l
-          border-zinc-800
+          border-[var(--border-color)]
           z-50
           overflow-y-auto
           transform
@@ -504,8 +549,7 @@ export default function Navbar() {
           ${mobileOpen ? "translate-x-0" : "translate-x-full"}
         `}
       >
-        {/* Header — X close button is always rendered, not just for logged-out users */}
-        <div className="flex items-center justify-between p-5 border-b border-zinc-800">
+        <div className="flex items-center justify-between p-5 border-b border-[var(--border-color)]">
           {isLoggedIn ? (
             <div className="flex items-center gap-2">
               <div
@@ -513,7 +557,7 @@ export default function Navbar() {
                   w-8
                   h-8
                   rounded-full
-                  bg-red-600
+                  bg-[var(--accent)]
                   flex
                   items-center
                   justify-center
@@ -525,26 +569,28 @@ export default function Navbar() {
               </div>
 
               <div>
-                <p className="text-white font-semibold text-lg leading-tight">{user.username}</p>
+                <p className="text-[var(--text-primary)] font-semibold text-lg leading-tight">{user.username}</p>
 
-                <p className="text-zinc-500 text-sm">Welcome back</p>
+                <p className="text-[var(--text-muted)] text-sm">Welcome back</p>
               </div>
             </div>
           ) : (
-            <span className="text-white font-semibold text-lg">Menu</span>
+            <span className="text-[var(--text-primary)] font-semibold text-lg">Menu</span>
           )}
 
-          <button onClick={() => setMobileOpen(false)} className="text-zinc-400 hover:text-white transition shrink-0">
-            <X size={22} />
-          </button>
+          <div className="flex items-center gap-2 shrink-0">
+            <ThemeToggle />
+
+            <button onClick={() => setMobileOpen(false)} className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition p-2">
+              <X size={22} />
+            </button>
+          </div>
         </div>
 
-        {/* Search */}
-        <div className="p-5 border-b border-zinc-800">
+        <div className="p-5 border-b border-[var(--border-color)]">
           <SearchBar mobile closeMenu={() => setMobileOpen(false)} />
         </div>
 
-        {/* Navigation */}
         <div className="flex flex-col py-2">
           {navItems.map((item) => {
             const Icon = item.icon;
@@ -563,7 +609,7 @@ export default function Navbar() {
                   text-base
                   font-medium
                   transition
-                  ${isActive ? "bg-red-600 text-white" : "text-zinc-300 hover:bg-zinc-900 hover:text-white"}
+                  ${isActive ? "bg-[var(--accent)] text-[var(--text-primary)]" : "text-[var(--text-secondary)] hover:bg-[var(--bg-card)] hover:text-[var(--text-primary)]"}
                   `}
               >
                 <Icon size={18} />
@@ -573,10 +619,7 @@ export default function Navbar() {
           })}
         </div>
 
-        {/* Footer — FIX: sits in normal document flow directly below Dashboard,
-            instead of being pinned to the bottom of a 100vh box (which is taller
-            than the visible mobile viewport once the browser address bar is shown). */}
-        <div className="p-4 border-t border-zinc-800">
+        <div className="p-4 border-t border-[var(--border-color)]">
           {isLoggedIn ? (
             <button
               onClick={handleLogout}
@@ -584,8 +627,9 @@ export default function Navbar() {
                 w-full
                 py-2
                 rounded-xl
-                bg-red-600
-                hover:bg-red-700
+                bg-[var(--accent)]
+                hover:bg-[var(--accent-hover)]
+                text-white
                 transition
                 font-semibold
               "
@@ -603,8 +647,9 @@ export default function Navbar() {
                   text-center
                   py-2
                   rounded-xl
-                  bg-red-600
-                  hover:bg-red-700
+                  bg-[var(--accent)]
+                  hover:bg-[var(--accent-hover)]
+                  text-white
                   transition
                   font-semibold
                 "
@@ -622,8 +667,8 @@ export default function Navbar() {
                   py-2
                   rounded-xl
                   border
-                  border-red-600
-                  hover:bg-red-600
+                  border-[var(--accent)]
+                  hover:bg-[var(--accent)]
                   transition
                   font-semibold
                 "

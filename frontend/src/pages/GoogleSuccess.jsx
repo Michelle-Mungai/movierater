@@ -82,11 +82,11 @@ console.log(localStorage.getItem("user"));
   }, [login, navigate]);
 
   return (
-    <div className="min-h-screen bg-black flex items-center justify-center">
+    <div className="min-h-screen bg-[var(--bg-primary)] flex items-center justify-center">
       <div className="text-center">
-        <div className="w-14 h-14 border-4 border-red-600 border-t-transparent rounded-full animate-spin mx-auto mb-5" />
+        <div className="w-14 h-14 border-4 border-[var(--accent)] border-t-transparent rounded-full animate-spin mx-auto mb-5" />
 
-        <p className="text-gray-300">
+        <p className="text-[var(--text-secondary)]">
           Completing sign in...
         </p>
       </div>

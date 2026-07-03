@@ -14,7 +14,7 @@ import GoogleSuccess from "./pages/GoogleSuccess";
 
 export default function App() {
   return (
-    <div className="bg-black min-h-screen text-white">
+    <div className="bg-[var(--bg-primary)] min-h-screen text-[var(--text-primary)]">
       <Routes>
         <Route
           path="/"

@@ -51,7 +51,7 @@ export default function RecommendationRow() {
   if (loading) {
     return (
       <section className="mb-12">
-        <h2 className="text-2xl font-bold text-white mb-5">
+        <h2 className="text-2xl font-bold text-[var(--text-primary)] mb-5">
           Recommended For You
         </h2>
 
@@ -61,11 +61,11 @@ export default function RecommendationRow() {
               key={i}
               className="w-40 sm:w-48 lg:w-56"
             >
-              <div className="h-72 rounded-xl bg-zinc-800 animate-pulse" />
+              <div className="h-72 rounded-xl bg-[var(--bg-card-hover)] animate-pulse" />
 
-              <div className="h-4 mt-3 rounded bg-zinc-800 animate-pulse" />
+              <div className="h-4 mt-3 rounded bg-[var(--bg-card-hover)] animate-pulse" />
 
-              <div className="h-4 mt-2 w-2/3 rounded bg-zinc-800 animate-pulse" />
+              <div className="h-4 mt-2 w-2/3 rounded bg-[var(--bg-card-hover)] animate-pulse" />
             </div>
           ))}
         </div>

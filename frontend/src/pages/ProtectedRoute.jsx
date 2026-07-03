@@ -17,11 +17,11 @@ export default function ProtectedRoute() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-black flex items-center justify-center">
+      <div className="min-h-screen bg-[var(--bg-primary)] flex items-center justify-center">
         <div className="flex flex-col items-center gap-4">
-          <div className="w-14 h-14 border-4 border-red-600 border-t-transparent rounded-full animate-spin" />
+          <div className="w-14 h-14 border-4 border-[var(--accent)] border-t-transparent rounded-full animate-spin" />
 
-          <p className="text-gray-400">
+          <p className="text-[var(--text-secondary)]">
             Loading...
           </p>
         </div>

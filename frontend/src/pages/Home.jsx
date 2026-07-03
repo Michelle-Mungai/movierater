@@ -106,11 +106,11 @@ export default function Home() {
 
   if (loading) {
     return (
-      <div className="bg-black min-h-screen flex items-center justify-center">
+      <div className="bg-[var(--bg-primary)] min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <div className="w-14 h-14 border-4 border-red-600 border-t-transparent rounded-full animate-spin mx-auto mb-5" />
+          <div className="w-14 h-14 border-4 border-[var(--accent)] border-t-transparent rounded-full animate-spin mx-auto mb-5" />
 
-          <p className="text-gray-300 text-lg">
+          <p className="text-[var(--text-secondary)] text-lg">
             Loading movies...
           </p>
         </div>
@@ -120,14 +120,14 @@ export default function Home() {
 
   if (error) {
     return (
-      <div className="bg-black min-h-screen flex items-center justify-center px-6">
+      <div className="bg-[var(--bg-primary)] min-h-screen flex items-center justify-center px-6">
         <div className="text-center max-w-lg">
 
-          <h2 className="text-white text-3xl font-bold mb-4">
+          <h2 className="text-[var(--text-primary)] text-3xl font-bold mb-4">
             Something went wrong
           </h2>
 
-          <p className="text-gray-400 mb-8">
+          <p className="text-[var(--text-secondary)] mb-8">
             {error}
           </p>
 
@@ -135,7 +135,7 @@ export default function Home() {
             onClick={() =>
               window.location.reload()
             }
-            className="bg-red-600 hover:bg-red-700 px-6 py-3 rounded-lg font-semibold transition"
+            className="bg-[var(--accent)] hover:bg-[var(--accent-hover)] px-6 py-3 rounded-lg font-semibold transition"
           >
             Reload
           </button>
@@ -146,7 +146,7 @@ export default function Home() {
   }
 
   return (
-    <div className="bg-black min-h-screen">
+    <div className="bg-[var(--bg-primary)] min-h-screen">
       <Navbar />
 
       <main className="pt-20">

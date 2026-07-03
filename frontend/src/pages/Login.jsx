@@ -87,15 +87,15 @@ export default function Login() {
   }
 
   return (
-    <div className="min-h-screen bg-black flex items-center justify-center px-4 py-8">
+    <div className="min-h-screen bg-[var(--bg-primary)] flex items-center justify-center px-4 py-8">
       <div className="w-full max-w-sm">
-        <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 sm:p-7 shadow-2xl">
+        <div className="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-2xl p-6 sm:p-7 shadow-2xl">
 
           <div className="text-center mb-6">
-            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-white">
+            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-[var(--text-primary)]">
               Welcome back
             </h1>
-            <p className="text-gray-500 text-sm mt-1">
+            <p className="text-[var(--text-muted)] text-sm mt-1">
               Sign in to keep watching
             </p>
           </div>
@@ -115,13 +115,13 @@ export default function Login() {
           </button>
 
           <div className="flex items-center mb-5">
-            <div className="flex-1 h-px bg-zinc-700" />
+            <div className="flex-1 h-px bg-[var(--bg-card-hover)]" />
 
-            <span className="px-3 text-gray-500 text-xs uppercase tracking-wide">
+            <span className="px-3 text-[var(--text-muted)] text-xs uppercase tracking-wide">
               Or
             </span>
 
-            <div className="flex-1 h-px bg-zinc-700" />
+            <div className="flex-1 h-px bg-[var(--bg-card-hover)]" />
           </div>
 
           <form
@@ -129,7 +129,7 @@ export default function Login() {
             className="space-y-4"
           >
             <div>
-              <label className="block text-gray-400 text-xs font-medium mb-1.5">
+              <label className="block text-[var(--text-secondary)] text-xs font-medium mb-1.5">
                 Email
               </label>
 
@@ -141,12 +141,12 @@ export default function Login() {
                   setEmail(e.target.value)
                 }
                 placeholder="john@example.com"
-                className="w-full bg-zinc-800 border border-zinc-700 rounded-lg py-2.5 px-3.5 text-sm text-white focus:outline-none focus:border-red-500 transition"
+                className="w-full bg-[var(--bg-card-hover)] border border-[var(--border-color)] rounded-lg py-2.5 px-3.5 text-sm text-[var(--text-primary)] focus:outline-none focus:border-[var(--accent)] transition"
               />
             </div>
 
             <div>
-              <label className="block text-gray-400 text-xs font-medium mb-1.5">
+              <label className="block text-[var(--text-secondary)] text-xs font-medium mb-1.5">
                 Password
               </label>
 
@@ -158,14 +158,14 @@ export default function Login() {
                   setPassword(e.target.value)
                 }
                 placeholder="••••••••"
-                className="w-full bg-zinc-800 border border-zinc-700 rounded-lg py-2.5 px-3.5 text-sm text-white focus:outline-none focus:border-red-500 transition"
+                className="w-full bg-[var(--bg-card-hover)] border border-[var(--border-color)] rounded-lg py-2.5 px-3.5 text-sm text-[var(--text-primary)] focus:outline-none focus:border-[var(--accent)] transition"
               />
             </div>
 
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-red-600 hover:bg-red-700 disabled:opacity-60 disabled:cursor-not-allowed text-white text-sm font-semibold py-2.5 rounded-lg transition"
+              className="w-full bg-[var(--accent)] hover:bg-[var(--accent-hover)] disabled:opacity-60 disabled:cursor-not-allowed text-[var(--text-primary)] text-sm font-semibold py-2.5 rounded-lg transition"
             >
               {loading
                 ? "Logging in..."
@@ -173,11 +173,11 @@ export default function Login() {
             </button>
           </form>
 
-          <p className="text-center text-gray-500 text-sm mt-6">
+          <p className="text-center text-[var(--text-muted)] text-sm mt-6">
             Don't have an account?{" "}
             <Link
               to="/register"
-              className="text-red-500 hover:text-red-400 font-medium"
+              className="text-[var(--accent)] hover:text-[var(--accent)] font-medium"
             >
               Create one
             </Link>

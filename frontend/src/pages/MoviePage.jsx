@@ -23,8 +23,8 @@ bg-linear-to-br
 from-zinc-900
 to-zinc-950
 border
-border-zinc-800
-hover:border-red-600
+border-[var(--border-color)]
+hover:border-[var(--accent)]
 transition
 rounded-2xl
 p-4
@@ -34,17 +34,17 @@ sm:space-y-6
 ">
       <div className="flex items-start justify-between gap-4">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-red-700 flex items-center justify-center text-white font-bold text-sm sm:text-lg uppercase">
+          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[var(--accent-hover)] flex items-center justify-center text-[var(--text-primary)] font-bold text-sm sm:text-lg uppercase">
             {review.username?.[0] || "?"}
           </div>
           <div>
-            <p className="text-white text-sm sm:text-base font-semibold">{review.username}</p>
-            <p className="text-gray-500 text-xs">{date}</p>
+            <p className="text-[var(--text-primary)] text-sm sm:text-base font-semibold">{review.username}</p>
+            <p className="text-[var(--text-muted)] text-xs">{date}</p>
           </div>
         </div>
         <div className="flex flex-col items-end gap-1">
           <span className="text-yellow-400 font-bold text-lg sm:text-2xl">
-            {review.overall}<span className="text-gray-500 text-xs sm:text-base font-normal">/10</span>
+            {review.overall}<span className="text-[var(--text-muted)] text-xs sm:text-base font-normal">/10</span>
           </span>
           {review.recommendation && (
             <span className="text-[10px] sm:text-xs bg-green-900/40 text-green-400 border border-green-800 px-2 py-0.5 rounded-full">
@@ -65,15 +65,15 @@ sm:space-y-6
         ].map(({ label, val }) => (
           <div key={label} className="bg-black/30
 border
-border-zinc-700
+border-[var(--border-color)]
 rounded-xl
 px-3
 py-2.5
-hover:border-red-600
+hover:border-[var(--accent)]
 transition">
-            <p className="text-gray-400 text-[10px] sm:text-xs uppercase tracking-widest mb-1">{label}</p>
+            <p className="text-[var(--text-secondary)] text-[10px] sm:text-xs uppercase tracking-widest mb-1">{label}</p>
             <div className="flex items-center gap-2">
-              <div className="flex-1 bg-zinc-700 rounded-full h-1.5">
+              <div className="flex-1 bg-[var(--bg-card-hover)] rounded-full h-1.5">
                 <div
                   className="bg-yellow-400 h-1.5 rounded-full transition-all duration-700"
                   style={{ width: `${(val / 10) * 100}%` }}
@@ -90,20 +90,20 @@ transition">
           {review.positives && (
             <div className="space-y-1">
               <p className="text-green-400 text-[10px] sm:text-xs font-bold uppercase tracking-widest">✦ What Worked</p>
-              <p className="text-gray-300 text-sm leading-relaxed">{review.positives}</p>
+              <p className="text-[var(--text-secondary)] text-sm leading-relaxed">{review.positives}</p>
             </div>
           )}
           {review.negatives && (
             <div className="space-y-1">
-              <p className="text-red-400 text-[10px] sm:text-xs font-bold uppercase tracking-widest">✦ What Didn't</p>
-              <p className="text-gray-300 text-sm leading-relaxed">{review.negatives}</p>
+              <p className="text-[var(--accent)] text-[10px] sm:text-xs font-bold uppercase tracking-widest">✦ What Didn't</p>
+              <p className="text-[var(--text-secondary)] text-sm leading-relaxed">{review.negatives}</p>
             </div>
           )}
         </div>
       )}
 
       {isOwner && (
-        <div className="flex gap-3 pt-2 border-t border-zinc-800">
+        <div className="flex gap-3 pt-2 border-t border-[var(--border-color)]">
           <button
             onClick={() => onEdit?.(review)}
             className="
@@ -117,8 +117,8 @@ transition">
             text-xs
             sm:text-sm
             font-semibold
-            bg-zinc-800
-            hover:bg-zinc-700
+            bg-[var(--bg-card-hover)]
+            hover:bg-[var(--bg-card-hover)]
             transition
             "
           >
@@ -138,10 +138,10 @@ transition">
             text-xs
             sm:text-sm
             font-semibold
-            bg-red-900/40
-            text-red-400
-            border border-red-800
-            hover:bg-red-900/70
+            bg-[var(--accent)]/10
+            text-[var(--accent)]
+            border border-[var(--accent)]/60
+            hover:bg-[var(--accent)]/20
             transition
             "
           >
@@ -183,7 +183,7 @@ bg-linear-to-br
 from-zinc-900
 to-zinc-950
 border
-border-zinc-800
+border-[var(--border-color)]
 rounded-2xl
 p-4
 sm:p-6
@@ -191,12 +191,12 @@ space-y-4
 sm:space-y-6
 ">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
-        <h3 className="text-white font-bold text-sm sm:text-lg">Community Score</h3>
+        <h3 className="text-[var(--text-primary)] font-bold text-sm sm:text-lg">Community Score</h3>
         <div className="flex items-center gap-2">
           <span className="text-yellow-400 font-bold text-2xl sm:text-4xl">{avgs.overall.toFixed(1)}</span>
           <div>
-            <p className="text-gray-400 text-xs">/10</p>
-            <p className="text-gray-500 text-xs">{reviews.length} review{reviews.length !== 1 ? "s" : ""}</p>
+            <p className="text-[var(--text-secondary)] text-xs">/10</p>
+            <p className="text-[var(--text-muted)] text-xs">{reviews.length} review{reviews.length !== 1 ? "s" : ""}</p>
           </div>
         </div>
       </div>
@@ -204,8 +204,8 @@ sm:space-y-6
       <div className="space-y-3 sm:space-y-4">
         {keys.map(k => (
           <div key={k} className="flex items-center gap-3">
-            <span className="text-gray-400 text-xs w-24 sm:w-28 shrink-0">{labels[k]}</span>
-            <div className="flex-1 bg-zinc-700 rounded-full h-2">
+            <span className="text-[var(--text-secondary)] text-xs w-24 sm:w-28 shrink-0">{labels[k]}</span>
+            <div className="flex-1 bg-[var(--bg-card-hover)] rounded-full h-2">
               <div
                 className="bg-linear-to-r from-red-600 to-yellow-400 h-2 rounded-full transition-all"
                 style={{ width: `${(avgs[k] / 10) * 100}%` }}
@@ -216,8 +216,8 @@ sm:space-y-6
         ))}
       </div>
 
-      <div className="flex items-center justify-between border-t border-zinc-700 pt-3 sm:pt-4">
-        <span className="text-gray-400 text-xs sm:text-sm">Would recommend</span>
+      <div className="flex items-center justify-between border-t border-[var(--border-color)] pt-3 sm:pt-4">
+        <span className="text-[var(--text-secondary)] text-xs sm:text-sm">Would recommend</span>
         <span className="text-green-400 font-bold text-sm sm:text-base">{recommendPct}%</span>
       </div>
     </div>
@@ -381,10 +381,10 @@ useEffect(() => {
 
   if (loading) {
     return (
-      <div className="bg-black min-h-screen flex items-center justify-center">
+      <div className="bg-[var(--bg-primary)] min-h-screen flex items-center justify-center">
         <div className="flex flex-col items-center gap-4">
-          <div className="w-12 h-12 border-4 border-red-600 border-t-transparent rounded-full animate-spin" />
-          <p className="text-gray-400 text-sm sm:text-base">Loading movie details…</p>
+          <div className="w-12 h-12 border-4 border-[var(--accent)] border-t-transparent rounded-full animate-spin" />
+          <p className="text-[var(--text-secondary)] text-sm sm:text-base">Loading movie details…</p>
         </div>
       </div>
     );
@@ -392,12 +392,12 @@ useEffect(() => {
 
   if (error) {
     return (
-      <div className="bg-black min-h-screen flex items-center justify-center">
+      <div className="bg-[var(--bg-primary)] min-h-screen flex items-center justify-center">
         <div className="text-center space-y-4">
-          <p className="text-white text-lg sm:text-xl">{error}</p>
+          <p className="text-[var(--text-primary)] text-lg sm:text-xl">{error}</p>
           <button
             onClick={() => navigate("/")}
-            className="bg-red-600 hover:bg-red-700 text-white px-5 py-2.5 rounded-lg text-sm font-semibold transition-colors"
+            className="bg-[var(--accent)] hover:bg-[var(--accent-hover)] text-[var(--text-primary)] px-5 py-2.5 rounded-lg text-sm font-semibold transition-colors"
           >
             ← Back Home
           </button>
@@ -464,7 +464,7 @@ useEffect(() => {
  
 
   return (
-    <div className="bg-black min-h-screen text-white">
+    <div className="bg-[var(--bg-primary)] min-h-screen text-[var(--text-primary)]">
       <div
         className="relative
 h-[35vh]
@@ -536,22 +536,22 @@ bg-center"
 
             <div className="flex flex-wrap items-center gap-2 sm:gap-3 mt-3 mb-4 sm:mb-6 text-xs sm:text-sm">
               {movie.release_date && (
-                <span className="text-gray-400">
+                <span className="text-[var(--text-secondary)]">
                   {new Date(movie.release_date).getFullYear()}
                 </span>
               )}
               {movie.runtime > 0 && (
                 <>
-                  <span className="text-gray-500">·</span>
-                  <span className="text-gray-400">{movie.runtime} min</span>
+                  <span className="text-[var(--text-muted)]">·</span>
+                  <span className="text-[var(--text-secondary)]">{movie.runtime} min</span>
                 </>
               )}
               {avgOverall && (
                 <>
-                  <span className="text-gray-500">·</span>
+                  <span className="text-[var(--text-muted)]">·</span>
                   <span className="flex items-center gap-1 text-yellow-400 font-bold">
                     ★ {avgOverall}
-                    <span className="text-gray-500 font-normal">({reviews.length} reviews)</span>
+                    <span className="text-[var(--text-muted)] font-normal">({reviews.length} reviews)</span>
                   </span>
                 </>
               )}
@@ -560,14 +560,14 @@ bg-center"
             {movie.genres?.length > 0 && (
               <div className="flex flex-wrap gap-2 mb-4 sm:mb-5">
                 {movie.genres.map(g => (
-                  <span key={g.id} className="bg-zinc-800 text-gray-300 text-[10px] sm:text-xs font-medium px-2.5 py-1 rounded-full border border-zinc-700">
+                  <span key={g.id} className="bg-[var(--bg-card-hover)] text-[var(--text-secondary)] text-[10px] sm:text-xs font-medium px-2.5 py-1 rounded-full border border-[var(--border-color)]">
                     {g.name}
                   </span>
                 ))}
               </div>
             )}
 
-            <p className="text-gray-300 text-sm sm:text-base leading-relaxed max-w-3xl mb-6 sm:mb-8">
+            <p className="text-[var(--text-secondary)] text-sm sm:text-base leading-relaxed max-w-3xl mb-6 sm:mb-8">
               {movie.overview || "No description available."}
             </p>
 
@@ -590,9 +590,9 @@ transition" onClick={watchTrailer}>
               </button>
               <button className="w-full
 sm:w-auto
-bg-red-600
-hover:bg-red-700
-text-white
+bg-[var(--accent)]
+hover:bg-[var(--accent-hover)]
+text-[var(--text-primary)]
 px-5
 sm:px-7
 py-2.5
@@ -608,11 +608,11 @@ transition" onClick={addToList}>
                 onClick={() => navigate(-1)}
                 className="w-full
 sm:w-auto
-bg-zinc-800
-hover:bg-zinc-700
+bg-[var(--bg-card-hover)]
+hover:bg-[var(--bg-card-hover)]
 border
-border-zinc-700
-text-white
+border-[var(--border-color)]
+text-[var(--text-primary)]
 px-5
 sm:px-7
 py-2.5
@@ -635,7 +635,7 @@ transition"
             <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold">
               Ratings & Reviews
               {reviews.length > 0 && (
-                <span className="ml-2 sm:ml-3 text-gray-500 font-normal text-base sm:text-lg">({reviews.length})</span>
+                <span className="ml-2 sm:ml-3 text-[var(--text-muted)] font-normal text-base sm:text-lg">({reviews.length})</span>
               )}
             </h2>
             {isLoggedIn ? (
@@ -643,8 +643,8 @@ transition"
                 onClick={() => setState(prev => ({ ...prev, showForm: !prev.showForm }))}
                 className={`self-start sm:self-auto px-4 sm:px-6 py-2 sm:py-2.5 rounded-lg font-semibold transition-colors text-xs sm:text-sm ${
                   showForm
-                    ? "bg-zinc-700 hover:bg-zinc-600 text-white border border-zinc-600"
-                    : "bg-red-600 hover:bg-red-700 text-white"
+                    ? "bg-[var(--bg-card-hover)] hover:bg-[var(--bg-card-hover)] text-[var(--text-primary)] border border-[var(--border-color)]"
+                    : "bg-[var(--accent)] hover:bg-[var(--accent-hover)] text-[var(--text-primary)]"
                 }`}
               >
                 {showForm ? "✕ Cancel" : "+ Write a Review"}
@@ -652,7 +652,7 @@ transition"
             ) : (
               <button
                 onClick={() => navigate("/login")}
-                className="self-start sm:self-auto bg-zinc-800 hover:bg-zinc-700 text-gray-300 border border-zinc-700 px-4 sm:px-6 py-2 sm:py-2.5 rounded-lg font-semibold text-xs sm:text-sm transition-colors"
+                className="self-start sm:self-auto bg-[var(--bg-card-hover)] hover:bg-[var(--bg-card-hover)] text-[var(--text-secondary)] border border-[var(--border-color)] px-4 sm:px-6 py-2 sm:py-2.5 rounded-lg font-semibold text-xs sm:text-sm transition-colors"
               >
                 Sign in to review
               </button>
@@ -661,7 +661,7 @@ transition"
 
           {showForm && (
             <div>
-              <h3 className="text-base sm:text-lg font-bold text-white mb-3 sm:mb-4">Your Review</h3>
+              <h3 className="text-base sm:text-lg font-bold text-[var(--text-primary)] mb-3 sm:mb-4">Your Review</h3>
               <ReviewForm
                 movie={movie}
                 mediaType={isTv ? "tv" : "movie"}
@@ -675,7 +675,7 @@ transition"
 
           {editingReview && (
             <div>
-              <h3 className="text-base sm:text-lg font-bold text-white mb-3 sm:mb-4">Edit Review</h3>
+              <h3 className="text-base sm:text-lg font-bold text-[var(--text-primary)] mb-3 sm:mb-4">Edit Review</h3>
               <ReviewForm
                 movie={movie}
                 mediaType={isTv ? "tv" : "movie"}
@@ -706,9 +706,9 @@ transition"
           right-0
           w-10 h-10 sm:w-12 sm:h-12
           rounded-full
-          bg-red-600
-          hover:bg-red-700
-          text-white
+          bg-[var(--accent)]
+          hover:bg-[var(--accent-hover)]
+          text-[var(--text-primary)]
           text-xl sm:text-2xl
           font-bold
           z-[10000]
@@ -744,10 +744,10 @@ transition"
               ))}
             </div>
           ) : !showForm && (
-            <div className="text-center py-14 sm:py-20 border border-dashed border-zinc-800 rounded-2xl">
+            <div className="text-center py-14 sm:py-20 border border-dashed border-[var(--border-color)] rounded-2xl">
               <p className="text-4xl sm:text-5xl mb-3 sm:mb-4">🎬</p>
-              <p className="text-gray-400 text-sm sm:text-lg font-medium">No reviews yet</p>
-              <p className="text-gray-600 text-xs sm:text-sm mt-1">Be the first to share your thoughts on this film.</p>
+              <p className="text-[var(--text-secondary)] text-sm sm:text-lg font-medium">No reviews yet</p>
+              <p className="text-[var(--text-muted)] text-xs sm:text-sm mt-1">Be the first to share your thoughts on this film.</p>
             </div>
           )}
         </div>

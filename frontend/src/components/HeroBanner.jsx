@@ -17,10 +17,6 @@ export default function HeroBanner({ movies = [] }) {
 
   const resumeTimer = useRef(null);
 
-  /* ---------------------------------- */
-  /* Auto Play                          */
-  /* ---------------------------------- */
-
   useEffect(() => {
     if (!autoPlay || movies.length === 0) return;
 
@@ -30,10 +26,6 @@ export default function HeroBanner({ movies = [] }) {
 
     return () => clearInterval(timer);
   }, [autoPlay, movies.length]);
-
-  /* ---------------------------------- */
-  /* Keyboard Navigation                */
-  /* ---------------------------------- */
 
   useEffect(() => {
     if (!movies.length) return;
@@ -54,10 +46,6 @@ export default function HeroBanner({ movies = [] }) {
 
     return () => window.removeEventListener("keydown", handle);
   }, [movies.length]);
-
-  /* ---------------------------------- */
-  /* Resume autoplay after manual click */
-  /* ---------------------------------- */
 
   const handleDotClick = (index) => {
     setCurrentIndex(index);
@@ -80,18 +68,6 @@ export default function HeroBanner({ movies = [] }) {
     };
   }, []);
 
-  /* ---------------------------------- */
-  /* Preload next 
-  
-  
-  
-  
-  
-  
-  
-  */
-  /* ---------------------------------- */
-
   useEffect(() => {
     if (!movies.length) return;
 
@@ -105,11 +81,7 @@ export default function HeroBanner({ movies = [] }) {
     }
   }, [currentIndex, movies]);
 
-  /* ---------------------------------- */
-  /* Trailer Modal                      */
-  /* ---------------------------------- */
-
-   const closeTrailer = () => {
+  const closeTrailer = () => {
     setShowTrailer(false);
     setTrailerKey(null);
   };
@@ -132,17 +104,13 @@ export default function HeroBanner({ movies = [] }) {
     };
   }, [showTrailer]);
 
-  /* ---------------------------------- */
-  /* Loading Screen                     */
-  /* ---------------------------------- */
-
   if (!movies.length) {
     return (
-      <div className="h-screen bg-black flex items-center justify-center">
+      <div className="h-screen bg-[var(--bg-primary)] flex items-center justify-center">
         <div className="text-center">
-          <div className="w-14 h-14 border-4 border-red-600 border-t-transparent rounded-full animate-spin mx-auto mb-5" />
+          <div className="w-14 h-14 border-4 border-[var(--accent)] border-t-transparent rounded-full animate-spin mx-auto mb-5" />
 
-          <p className="text-zinc-300 text-xl">
+          <p className="text-[var(--text-secondary)] text-xl">
             Loading featured movies...
           </p>
         </div>
@@ -157,10 +125,6 @@ export default function HeroBanner({ movies = [] }) {
     : movie.poster_path
     ? `https://image.tmdb.org/t/p/original${movie.poster_path}`
     : "https://placehold.co/1280x720?text=No+Image";
-
-  /* ---------------------------------- */
-  /* Trailer                            */
-  /* ---------------------------------- */
 
   const watchTrailer = async () => {
     try {
@@ -188,13 +152,7 @@ export default function HeroBanner({ movies = [] }) {
     }
   };
 
-  /* ---------------------------------- */
-  /* My List                            */
-  /* ---------------------------------- */
-
   const addToList = () => {
-    // FIX: guests were able to write straight to localStorage. Now we
-    // require login first and send them to /login if they're not signed in.
     if (!isLoggedIn) {
       toast("Please sign in to add to your list.");
       navigate("/login");
@@ -241,7 +199,7 @@ export default function HeroBanner({ movies = [] }) {
     }}
   />
 
-  {/* Overlay */}
+  {/* Overlay — always a dark scrim regardless of theme, for legibility over the image */}
   <div className="absolute inset-0 bg-linear-to-r from-black via-black/70 to-transparent" />
 
   {/* Content */}
@@ -249,7 +207,7 @@ export default function HeroBanner({ movies = [] }) {
 
     <div className="relative z-10 w-full max-w-xl sm:max-w-2xl lg:max-w-3xl px-4 pb-10 sm:px-8 sm:pb-18 md:px-12 md:pb-20 lg:px-20 lg:pb-24">
 
-      {/* Title */}
+      {/* Title — fixed white: this always sits on the dark-scrimmed image, not the page background */}
 
       <h1 className="text-3xl sm:text-5xl lg:text-7xl font-black text-white leading-tight drop-shadow-lg">
         {movie.title || movie.name}
@@ -318,7 +276,7 @@ export default function HeroBanner({ movies = [] }) {
 
         <button
           onClick={addToList}
-          className="bg-red-600 hover:bg-red-700 hover:scale-105 active:scale-95 transition-all text-white rounded-lg px-7 py-3 font-semibold"
+          className="bg-[var(--accent)] hover:bg-[var(--accent-hover)] hover:scale-105 active:scale-95 transition-all text-white rounded-lg px-7 py-3 font-semibold"
         >
           ❤ Add To List
         </button>
@@ -341,7 +299,7 @@ export default function HeroBanner({ movies = [] }) {
         aria-label={`Slide ${index + 1}`}
         className={`transition-all rounded-full ${
           currentIndex === index
-            ? "bg-red-600 w-8 h-3"
+            ? "bg-[var(--accent)] w-8 h-3"
             : "bg-gray-400 hover:bg-white w-3 h-3"
         }`}
       />
@@ -366,7 +324,7 @@ export default function HeroBanner({ movies = [] }) {
 
         <button
           onClick={closeTrailer}
-          className="absolute -top-12 right-0 text-white text-4xl hover:text-red-500 transition"
+          className="absolute -top-12 right-0 text-white text-4xl hover:text-[var(--accent)] transition"
         >
           ✕
         </button>

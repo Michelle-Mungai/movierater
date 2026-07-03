@@ -27,6 +27,7 @@ export default function MovieCard({ movie, fullWidth = false }) {
       }/${movie.id}`}
       className={`
       group
+      block
       shrink-0
 
       ${
@@ -47,7 +48,7 @@ export default function MovieCard({ movie, fullWidth = false }) {
         overflow-hidden
         rounded-lg
         sm:rounded-xl
-        bg-zinc-900
+        bg-[var(--bg-card)]
         shadow-lg
         "
       >
@@ -128,9 +129,9 @@ export default function MovieCard({ movie, fullWidth = false }) {
           sm:top-3
           sm:right-3
 
-          bg-red-600
+          bg-[var(--accent)]
 
-          text-white
+          text-[var(--text-primary)]
 
           text-[9px]
           sm:text-xs
@@ -174,10 +175,10 @@ export default function MovieCard({ movie, fullWidth = false }) {
             className="
             w-full
 
-            bg-red-600
-            hover:bg-red-700
+            bg-[var(--accent)]
+            hover:bg-[var(--accent-hover)]
 
-            text-white
+            text-[var(--text-primary)]
 
             py-2
 
@@ -196,7 +197,7 @@ export default function MovieCard({ movie, fullWidth = false }) {
       <div className="mt-1.5 sm:mt-3">
         <h3
           className="
-          text-white
+          text-[var(--text-primary)]
 
           font-medium
           sm:font-semibold
@@ -221,7 +222,7 @@ export default function MovieCard({ movie, fullWidth = false }) {
           gap-1.5
           sm:gap-2
 
-          text-zinc-500
+          text-[var(--text-muted)]
 
           text-[10px]
           sm:text-xs

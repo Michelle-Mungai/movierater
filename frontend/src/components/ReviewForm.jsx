@@ -27,7 +27,7 @@ function ReadOnlyStars({ value }) {
         <span
           key={i}
           className={
-            i < rounded ? "text-yellow-400" : "text-zinc-700"
+            i < rounded ? "text-yellow-400" : "text-[var(--text-muted)]"
           }
         >
           ★
@@ -177,8 +177,8 @@ export default function ReviewForm({
     <form
       onSubmit={submit}
       className="
-      bg-zinc-900
-      border border-zinc-800
+      bg-[var(--bg-card)]
+      border border-[var(--border-color)]
       rounded-2xl
       p-3
       sm:p-5
@@ -189,11 +189,11 @@ export default function ReviewForm({
     >
       {/* Header */}
       <div className="space-y-1">
-        <h2 className="text-base sm:text-lg font-bold text-white">
+        <h2 className="text-base sm:text-lg font-bold text-[var(--text-primary)]">
           {isEditing ? "Edit Your Review" : "Write a Review"}
         </h2>
 
-        <p className="text-xs sm:text-sm text-zinc-400">
+        <p className="text-xs sm:text-sm text-[var(--text-secondary)]">
           {isEditing
             ? "Update your ratings and thoughts."
             : "Share your thoughts and help other movie lovers."}
@@ -206,15 +206,15 @@ export default function ReviewForm({
           <div
             key={key}
             className="
-            bg-zinc-800/50
+            bg-[var(--bg-card-hover)]/50
             rounded-lg
             p-2.5
             sm:p-3
-            border border-zinc-700
+            border border-[var(--border-color)]
             "
           >
             <div className="flex items-center justify-between mb-2">
-              <p className="text-white text-xs sm:text-sm font-medium">
+              <p className="text-[var(--text-primary)] text-xs sm:text-sm font-medium">
                 {label}
               </p>
 
@@ -235,17 +235,17 @@ export default function ReviewForm({
       </div>
 
       {/* Overall — computed, not editable */}
-      <div className="border-t border-zinc-700 pt-4 sm:pt-5">
+      <div className="border-t border-[var(--border-color)] pt-4 sm:pt-5">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-2.5">
           <div>
-            <h3 className="text-sm sm:text-base font-bold text-white">
+            <h3 className="text-sm sm:text-base font-bold text-[var(--text-primary)]">
               Overall Rating
             </h3>
           </div>
 
           <div className="text-xl sm:text-2xl font-bold text-yellow-400">
             {overall.toFixed(1)}
-            <span className="text-sm text-zinc-500">
+            <span className="text-sm text-[var(--text-muted)]">
               /10
             </span>
           </div>
@@ -270,13 +270,13 @@ export default function ReviewForm({
             placeholder="Story, acting, soundtrack..."
             className="
             w-full
-            bg-zinc-800
-            border border-zinc-700
+            bg-[var(--bg-card-hover)]
+            border border-[var(--border-color)]
             rounded-lg
             p-2
             text-sm
-            text-white
-            placeholder:text-zinc-500
+            text-[var(--text-primary)]
+            placeholder:text-[var(--text-muted)]
             resize-none
             focus:outline-none
             focus:ring-2
@@ -286,7 +286,7 @@ export default function ReviewForm({
         </div>
 
         <div>
-          <label className="block text-xs sm:text-sm font-semibold text-red-400 mb-1.5">
+          <label className="block text-xs sm:text-sm font-semibold text-[var(--accent)] mb-1.5">
             👎 What could be improved?
           </label>
 
@@ -299,13 +299,13 @@ export default function ReviewForm({
             placeholder="Anything you disliked..."
             className="
             w-full
-            bg-zinc-800
-            border border-zinc-700
+            bg-[var(--bg-card-hover)]
+            border border-[var(--border-color)]
             rounded-lg
             p-2
             text-sm
-            text-white
-            placeholder:text-zinc-500
+            text-[var(--text-primary)]
+            placeholder:text-[var(--text-muted)]
             resize-none
             focus:outline-none
             focus:ring-2
@@ -318,8 +318,8 @@ export default function ReviewForm({
       {/* Recommend */}
       <div
         className="
-        bg-zinc-800
-        border border-zinc-700
+        bg-[var(--bg-card-hover)]
+        border border-[var(--border-color)]
         rounded-lg
         p-2
         sm:p-3
@@ -330,11 +330,11 @@ export default function ReviewForm({
         "
       >
         <div>
-          <h3 className="text-sm sm:text-base font-semibold text-white">
+          <h3 className="text-sm sm:text-base font-semibold text-[var(--text-primary)]">
             Would you recommend this?
           </h3>
 
-          <p className="text-zinc-500 text-xs">
+          <p className="text-[var(--text-muted)] text-xs">
             Let other users know if it's worth watching.
           </p>
         </div>
@@ -355,8 +355,8 @@ export default function ReviewForm({
           shrink-0
           ${
             recommendation
-              ? "bg-red-600"
-              : "bg-zinc-600"
+              ? "bg-[var(--accent)]"
+              : "bg-[var(--bg-card-hover)]"
           }
           `}
         >
@@ -394,8 +394,8 @@ export default function ReviewForm({
           font-semibold
           text-sm
           sm:text-base
-          bg-red-600
-          hover:bg-red-700
+          bg-[var(--accent)]
+          hover:bg-[var(--accent-hover)]
           disabled:opacity-50
           disabled:cursor-not-allowed
           transition
@@ -425,8 +425,8 @@ export default function ReviewForm({
             font-semibold
             text-sm
             sm:text-base
-            bg-zinc-800
-            hover:bg-zinc-700
+            bg-[var(--bg-card-hover)]
+            hover:bg-[var(--bg-card-hover)]
             transition
             "
           >

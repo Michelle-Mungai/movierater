@@ -45,7 +45,7 @@ export default function RatingStars({
               ${
                 star <= activeValue
                   ? "text-yellow-400 scale-110"
-                  : "text-zinc-600"
+                  : "text-[var(--text-muted)]"
               }
               ${
                 readOnly

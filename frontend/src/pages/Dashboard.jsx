@@ -91,19 +91,19 @@ export default function Dashboard() {
 
   if (!user) {
     return (
-      <div className="bg-black min-h-screen flex items-center justify-center">
-      <div className="w-14 h-14 border-4 border-red-600 border-t-transparent rounded-full animate-spin" />
+      <div className="bg-[var(--bg-primary)] min-h-screen flex items-center justify-center">
+      <div className="w-14 h-14 border-4 border-[var(--accent)] border-t-transparent rounded-full animate-spin" />
     </div>
     );
   }
 
   if (loading) {
     return (
-      <div className="bg-black min-h-screen flex items-center justify-center">
+      <div className="bg-[var(--bg-primary)] min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <div className="w-14 h-14 border-4 border-red-600 border-t-transparent rounded-full animate-spin mx-auto mb-5" />
+          <div className="w-14 h-14 border-4 border-[var(--accent)] border-t-transparent rounded-full animate-spin mx-auto mb-5" />
 
-          <p className="text-gray-400">
+          <p className="text-[var(--text-secondary)]">
             Loading Dashboard...
           </p>
         </div>
@@ -115,14 +115,14 @@ export default function Dashboard() {
     <>
       <Navbar />
 
-      <div className="min-h-screen bg-black text-white pt-24 px-4 sm:px-6 lg:px-8 pb-10">
+      <div className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] pt-24 px-4 sm:px-6 lg:px-8 pb-10">
 
         <div className="mb-6">
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight">
             Welcome, {user.username}
           </h1>
 
-          <p className="text-gray-500 text-sm mt-1">
+          <p className="text-[var(--text-muted)] text-sm mt-1">
             Track your movie activity.
           </p>
         </div>
@@ -130,8 +130,8 @@ export default function Dashboard() {
         {/* Stats — always side by side, even on mobile */}
         <div className="grid grid-cols-3 gap-2.5 sm:gap-4 mb-8">
 
-          <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-3 sm:p-5 text-center">
-            <p className="text-gray-500 text-[11px] sm:text-sm">
+          <div className="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-xl p-3 sm:p-5 text-center">
+            <p className="text-[var(--text-muted)] text-[11px] sm:text-sm">
               Total Reviews
             </p>
 
@@ -140,8 +140,8 @@ export default function Dashboard() {
             </h2>
           </div>
 
-          <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-3 sm:p-5 text-center">
-            <p className="text-gray-500 text-[11px] sm:text-sm">
+          <div className="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-xl p-3 sm:p-5 text-center">
+            <p className="text-[var(--text-muted)] text-[11px] sm:text-sm">
               Avg Rating
             </p>
 
@@ -150,8 +150,8 @@ export default function Dashboard() {
             </h2>
           </div>
 
-          <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-3 sm:p-5 text-center">
-            <p className="text-gray-500 text-[11px] sm:text-sm">
+          <div className="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-xl p-3 sm:p-5 text-center">
+            <p className="text-[var(--text-muted)] text-[11px] sm:text-sm">
               Recommended
             </p>
 
@@ -173,7 +173,7 @@ export default function Dashboard() {
               <Link
                 key={`${movie.media_type || "movie"}-${movie.id}`}
                 to={`/${movie.media_type === "tv" ? "tv" : "movie"}/${movie.id}`}
-                className="group bg-zinc-900 rounded-lg sm:rounded-xl overflow-hidden hover:scale-105 transition"
+                className="group bg-[var(--bg-card)] rounded-lg sm:rounded-xl overflow-hidden hover:scale-105 transition"
               >
                 <img
                   src={
@@ -201,19 +201,19 @@ export default function Dashboard() {
         </h2>
 
         {reviews.length === 0 ? (
-          <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-8 sm:p-10 text-center">
+          <div className="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-2xl p-8 sm:p-10 text-center">
 
             <h3 className="text-lg sm:text-2xl font-bold mb-2">
               No Reviews Yet
             </h3>
 
-            <p className="text-gray-500 text-sm mb-5">
+            <p className="text-[var(--text-muted)] text-sm mb-5">
               Start reviewing movies.
             </p>
 
             <Link
               to="/"
-              className="inline-block bg-red-600 hover:bg-red-700 px-5 py-2.5 rounded-lg text-sm font-semibold"
+              className="inline-block bg-[var(--accent)] hover:bg-[var(--accent-hover)] px-5 py-2.5 rounded-lg text-sm font-semibold"
             >
               Browse Movies
             </Link>
@@ -226,7 +226,7 @@ export default function Dashboard() {
               (review) => (
                 <div
                   key={review.id}
-                  className="bg-zinc-900 border border-zinc-800 rounded-2xl p-3 sm:p-6 flex flex-row gap-3 sm:gap-6"
+                  className="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-2xl p-3 sm:p-6 flex flex-row gap-3 sm:gap-6"
                 >
 
                   <img
@@ -265,18 +265,18 @@ export default function Dashboard() {
                           Positives
                         </h4>
 
-                        <p className="text-gray-400 text-xs sm:text-base line-clamp-3 sm:line-clamp-none">
+                        <p className="text-[var(--text-secondary)] text-xs sm:text-base line-clamp-3 sm:line-clamp-none">
                           {review.positives ||
                             "No comments"}
                         </p>
                       </div>
 
                       <div>
-                        <h4 className="text-red-400 text-xs sm:text-base font-semibold mb-1 sm:mb-2">
+                        <h4 className="text-[var(--accent)] text-xs sm:text-base font-semibold mb-1 sm:mb-2">
                           Negatives
                         </h4>
 
-                        <p className="text-gray-400 text-xs sm:text-base line-clamp-3 sm:line-clamp-none">
+                        <p className="text-[var(--text-secondary)] text-xs sm:text-base line-clamp-3 sm:line-clamp-none">
                           {review.negatives ||
                             "No comments"}
                         </p>

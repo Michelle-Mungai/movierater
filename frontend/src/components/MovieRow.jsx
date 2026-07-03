@@ -34,7 +34,7 @@ export default function MovieRow({ title, movies = [] }) {
       <div className="flex items-center justify-between mb-4 sm:mb-5">
         <h2
           className="
-          text-white
+          text-[var(--text-primary)]
           text-xl
           sm:text-2xl
           md:text-3xl
@@ -66,9 +66,9 @@ export default function MovieRow({ title, movies = [] }) {
         rounded-full
 
         bg-black/70
-        hover:bg-red-600
+        hover:bg-[var(--accent)]
 
-        text-white
+        text-[var(--text-primary)]
         text-2xl
 
         items-center
@@ -101,9 +101,9 @@ export default function MovieRow({ title, movies = [] }) {
         rounded-full
 
         bg-black/70
-        hover:bg-red-600
+        hover:bg-[var(--accent)]
 
-        text-white
+        text-[var(--text-primary)]
         text-2xl
 
         items-center

@@ -46,11 +46,11 @@ export default function Movies() {
 
   if (loading) {
     return (
-      <div className="bg-black min-h-screen flex items-center justify-center">
+      <div className="bg-[var(--bg-primary)] min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <div className="w-12 h-12 border-4 border-red-600 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <div className="w-12 h-12 border-4 border-[var(--accent)] border-t-transparent rounded-full animate-spin mx-auto mb-4" />
 
-          <p className="text-gray-400 text-sm sm:text-base">
+          <p className="text-[var(--text-secondary)] text-sm sm:text-base">
             Loading movies...
           </p>
         </div>
@@ -60,14 +60,14 @@ export default function Movies() {
 
   if (error) {
     return (
-      <div className="bg-black min-h-screen flex items-center justify-center px-6">
+      <div className="bg-[var(--bg-primary)] min-h-screen flex items-center justify-center px-6">
         <div className="text-center">
 
-          <h2 className="text-white text-xl sm:text-2xl font-bold mb-3">
+          <h2 className="text-[var(--text-primary)] text-xl sm:text-2xl font-bold mb-3">
             Something went wrong
           </h2>
 
-          <p className="text-gray-500 text-sm mb-6">
+          <p className="text-[var(--text-muted)] text-sm mb-6">
             {error}
           </p>
 
@@ -75,7 +75,7 @@ export default function Movies() {
             onClick={() =>
               window.location.reload()
             }
-            className="bg-red-600 hover:bg-red-700 px-5 py-2.5 rounded-lg text-sm font-semibold transition"
+            className="bg-[var(--accent)] hover:bg-[var(--accent-hover)] px-5 py-2.5 rounded-lg text-sm font-semibold transition"
           >
             Reload
           </button>
@@ -86,7 +86,7 @@ export default function Movies() {
   }
 
   return (
-    <div className="bg-black min-h-screen">
+    <div className="bg-[var(--bg-primary)] min-h-screen">
       <Navbar />
 
       <main className="pt-24 pb-10 px-4 sm:px-6 lg:px-10">
@@ -95,11 +95,11 @@ export default function Movies() {
 
           <div className="mb-6">
 
-            <h1 className="text-white text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight">
+            <h1 className="text-[var(--text-primary)] text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight">
               Top Rated Movies
             </h1>
 
-            <p className="text-gray-500 text-sm mt-1">
+            <p className="text-[var(--text-muted)] text-sm mt-1">
               Browse the highest-rated movies available.
             </p>
 
@@ -108,7 +108,7 @@ export default function Movies() {
           {movies.length === 0 ? (
             <div className="flex justify-center py-16">
 
-              <p className="text-gray-500 text-base">
+              <p className="text-[var(--text-muted)] text-base">
                 No movies found.
               </p>
 

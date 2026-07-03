@@ -48,7 +48,7 @@ export default function TopRated() {
   if (loading) {
     return (
       <section className="relative mb-10 sm:mb-14 md:mb-16">
-        <h2 className="text-white text-xl sm:text-2xl md:text-3xl font-bold mb-4 sm:mb-5">
+        <h2 className="text-[var(--text-primary)] text-xl sm:text-2xl md:text-3xl font-bold mb-4 sm:mb-5">
           ⭐ Top Rated By Users
         </h2>
 
@@ -59,17 +59,17 @@ export default function TopRated() {
               className="
               shrink-0
               w-36 sm:w-44 md:w-52 lg:w-56 xl:w-60
-              bg-zinc-900
+              bg-[var(--bg-card)]
               rounded-xl
               overflow-hidden
               animate-pulse
               "
             >
-              <div className="aspect-2/3 bg-zinc-800" />
+              <div className="aspect-2/3 bg-[var(--bg-card-hover)]" />
 
               <div className="p-3 space-y-2">
-                <div className="h-4 bg-zinc-800 rounded" />
-                <div className="h-3 bg-zinc-800 rounded w-2/3" />
+                <div className="h-4 bg-[var(--bg-card-hover)] rounded" />
+                <div className="h-3 bg-[var(--bg-card-hover)] rounded w-2/3" />
               </div>
             </div>
           ))}
@@ -81,12 +81,12 @@ export default function TopRated() {
   if (!movies.length) {
     return (
       <section className="relative mb-10 sm:mb-14 md:mb-16">
-        <h2 className="text-white text-xl sm:text-2xl md:text-3xl font-bold mb-4 sm:mb-5">
+        <h2 className="text-[var(--text-primary)] text-xl sm:text-2xl md:text-3xl font-bold mb-4 sm:mb-5">
           ⭐ Top Rated By Users
         </h2>
 
-        <div className="bg-zinc-900 border border-zinc-800 rounded-xl py-16 text-center">
-          <p className="text-zinc-400">
+        <div className="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-xl py-16 text-center">
+          <p className="text-[var(--text-secondary)]">
             No community ratings yet.
           </p>
         </div>
@@ -101,7 +101,7 @@ export default function TopRated() {
       <div className="flex items-center justify-between mb-4 sm:mb-5">
         <h2
           className="
-          text-white
+          text-[var(--text-primary)]
           text-xl
           sm:text-2xl
           md:text-3xl
@@ -133,9 +133,9 @@ export default function TopRated() {
         rounded-full
 
         bg-black/70
-        hover:bg-red-600
+        hover:bg-[var(--accent)]
 
-        text-white
+        text-[var(--text-primary)]
         text-2xl
 
         items-center
@@ -168,9 +168,9 @@ export default function TopRated() {
         rounded-full
 
         bg-black/70
-        hover:bg-red-600
+        hover:bg-[var(--accent)]
 
-        text-white
+        text-[var(--text-primary)]
         text-2xl
 
         items-center
@@ -223,16 +223,16 @@ export default function TopRated() {
               relative
               overflow-hidden
               rounded-xl
-              bg-zinc-900
-              border border-zinc-800
-              hover:border-red-600
+              bg-[var(--bg-card)]
+              border border-[var(--border-color)]
+              hover:border-[var(--accent)]
               transition
               duration-300
               hover:-translate-y-2
               "
             >
               {/* Rank Badge */}
-              <div className="absolute top-3 left-3 z-20 w-8 h-8 rounded-full bg-red-600 flex items-center justify-center text-white text-sm font-bold shadow-lg">
+              <div className="absolute top-3 left-3 z-20 w-8 h-8 rounded-full bg-[var(--accent)] flex items-center justify-center text-[var(--text-primary)] text-sm font-bold shadow-lg">
                 {index + 1}
               </div>
 
@@ -263,11 +263,11 @@ export default function TopRated() {
 
             {/* Info */}
             <div className="mt-3">
-              <h3 className="text-white font-semibold text-sm md:text-base line-clamp-1 group-hover:text-red-400 transition">
+              <h3 className="text-[var(--text-primary)] font-semibold text-sm md:text-base line-clamp-1 group-hover:text-[var(--accent)] transition">
                 {movie.title}
               </h3>
 
-              <div className="mt-1 flex items-center gap-2 text-zinc-400 text-xs sm:text-sm">
+              <div className="mt-1 flex items-center gap-2 text-[var(--text-secondary)] text-xs sm:text-sm">
                 <span className="text-yellow-400 font-bold">
                   ⭐ {Number(movie.rating).toFixed(1)}
                 </span>
