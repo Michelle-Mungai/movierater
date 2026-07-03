@@ -1,5 +1,6 @@
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { useEffect, useState, useCallback, useRef } from "react";
+import { X } from "lucide-react";
 import api from "../services/api";
 import toast from "react-hot-toast";
 import ReviewForm from "../components/ReviewForm";
@@ -26,33 +27,34 @@ border-zinc-800
 hover:border-red-600
 transition
 rounded-2xl
-p-5
+p-4
 sm:p-6
-space-y-6
+space-y-4
+sm:space-y-6
 ">
       <div className="flex items-start justify-between gap-4">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-red-700 flex items-center justify-center text-white font-bold text-lg uppercase">
+          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-red-700 flex items-center justify-center text-white font-bold text-sm sm:text-lg uppercase">
             {review.username?.[0] || "?"}
           </div>
           <div>
-            <p className="text-white font-semibold">{review.username}</p>
+            <p className="text-white text-sm sm:text-base font-semibold">{review.username}</p>
             <p className="text-gray-500 text-xs">{date}</p>
           </div>
         </div>
         <div className="flex flex-col items-end gap-1">
-          <span className="text-yellow-400 font-black text-2xl">
-            {review.overall}<span className="text-gray-500 text-base font-normal">/10</span>
+          <span className="text-yellow-400 font-bold text-lg sm:text-2xl">
+            {review.overall}<span className="text-gray-500 text-xs sm:text-base font-normal">/10</span>
           </span>
           {review.recommendation && (
-            <span className="text-xs bg-green-900/40 text-green-400 border border-green-800 px-2 py-0.5 rounded-full">
+            <span className="text-[10px] sm:text-xs bg-green-900/40 text-green-400 border border-green-800 px-2 py-0.5 rounded-full">
               ✓ Recommends
             </span>
           )}
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
         {[
           { label: "Cinematography", val: review.cinematography },
           { label: "Acting", val: review.acting },
@@ -65,11 +67,11 @@ space-y-6
 border
 border-zinc-700
 rounded-xl
-px-4
-py-3
+px-3
+py-2.5
 hover:border-red-600
 transition">
-            <p className="text-gray-400 text-xs uppercase tracking-widest mb-1">{label}</p>
+            <p className="text-gray-400 text-[10px] sm:text-xs uppercase tracking-widest mb-1">{label}</p>
             <div className="flex items-center gap-2">
               <div className="flex-1 bg-zinc-700 rounded-full h-1.5">
                 <div
@@ -84,16 +86,16 @@ transition">
       </div>
 
       {(review.positives || review.negatives) && (
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-2 gap-4 sm:gap-6">
           {review.positives && (
             <div className="space-y-1">
-              <p className="text-green-400 text-xs font-bold uppercase tracking-widest">✦ What Worked</p>
+              <p className="text-green-400 text-[10px] sm:text-xs font-bold uppercase tracking-widest">✦ What Worked</p>
               <p className="text-gray-300 text-sm leading-relaxed">{review.positives}</p>
             </div>
           )}
           {review.negatives && (
             <div className="space-y-1">
-              <p className="text-red-400 text-xs font-bold uppercase tracking-widest">✦ What Didn't</p>
+              <p className="text-red-400 text-[10px] sm:text-xs font-bold uppercase tracking-widest">✦ What Didn't</p>
               <p className="text-gray-300 text-sm leading-relaxed">{review.negatives}</p>
             </div>
           )}
@@ -105,11 +107,15 @@ transition">
           <button
             onClick={() => onEdit?.(review)}
             className="
-            mt-4
-            px-4
-            py-2
+            mt-3
+            sm:mt-4
+            px-3
+            sm:px-4
+            py-1.5
+            sm:py-2
             rounded-lg
-            text-sm
+            text-xs
+            sm:text-sm
             font-semibold
             bg-zinc-800
             hover:bg-zinc-700
@@ -122,11 +128,15 @@ transition">
           <button
             onClick={() => onDelete?.(review)}
             className="
-            mt-4
-            px-4
-            py-2
+            mt-3
+            sm:mt-4
+            px-3
+            sm:px-4
+            py-1.5
+            sm:py-2
             rounded-lg
-            text-sm
+            text-xs
+            sm:text-sm
             font-semibold
             bg-red-900/40
             text-red-400
@@ -175,13 +185,15 @@ to-zinc-950
 border
 border-zinc-800
 rounded-2xl
-p-6
-space-y-6
+p-4
+sm:p-6
+space-y-4
+sm:space-y-6
 ">
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <h3 className="text-white font-bold text-lg">Community Score</h3>
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
+        <h3 className="text-white font-bold text-sm sm:text-lg">Community Score</h3>
         <div className="flex items-center gap-2">
-          <span className="text-yellow-400 font-black text-4xl">{avgs.overall.toFixed(1)}</span>
+          <span className="text-yellow-400 font-bold text-2xl sm:text-4xl">{avgs.overall.toFixed(1)}</span>
           <div>
             <p className="text-gray-400 text-xs">/10</p>
             <p className="text-gray-500 text-xs">{reviews.length} review{reviews.length !== 1 ? "s" : ""}</p>
@@ -189,7 +201,7 @@ space-y-6
         </div>
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-3 sm:space-y-4">
         {keys.map(k => (
           <div key={k} className="flex items-center gap-3">
             <span className="text-gray-400 text-xs w-24 sm:w-28 shrink-0">{labels[k]}</span>
@@ -204,9 +216,9 @@ space-y-6
         ))}
       </div>
 
-      <div className="flex items-center justify-between border-t border-zinc-700 pt-4">
-        <span className="text-gray-400 text-sm">Would recommend</span>
-        <span className="text-green-400 font-bold">{recommendPct}%</span>
+      <div className="flex items-center justify-between border-t border-zinc-700 pt-3 sm:pt-4">
+        <span className="text-gray-400 text-xs sm:text-sm">Would recommend</span>
+        <span className="text-green-400 font-bold text-sm sm:text-base">{recommendPct}%</span>
       </div>
     </div>
   );
@@ -372,7 +384,7 @@ useEffect(() => {
       <div className="bg-black min-h-screen flex items-center justify-center">
         <div className="flex flex-col items-center gap-4">
           <div className="w-12 h-12 border-4 border-red-600 border-t-transparent rounded-full animate-spin" />
-          <p className="text-gray-400 text-lg">Loading movie details…</p>
+          <p className="text-gray-400 text-sm sm:text-base">Loading movie details…</p>
         </div>
       </div>
     );
@@ -382,10 +394,10 @@ useEffect(() => {
     return (
       <div className="bg-black min-h-screen flex items-center justify-center">
         <div className="text-center space-y-4">
-          <p className="text-white text-2xl">{error}</p>
+          <p className="text-white text-lg sm:text-xl">{error}</p>
           <button
             onClick={() => navigate("/")}
-            className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors"
+            className="bg-red-600 hover:bg-red-700 text-white px-5 py-2.5 rounded-lg text-sm font-semibold transition-colors"
           >
             ← Back Home
           </button>
@@ -463,19 +475,50 @@ bg-center"
         style={{ backgroundImage: `url(${backdropUrl})` }}
       >
         <div className="absolute inset-0 bg-linear-to-b from-black/30 via-black/40 to-black" />
+
+        {/* NEW: close button — quick way to leave the page from the top,
+            independent of the "Back" button further down in the content. */}
+        <button
+          onClick={() => navigate(-1)}
+          aria-label="Close"
+          className="
+            absolute
+            top-4
+            right-4
+            sm:top-6
+            sm:right-6
+            z-20
+            w-9
+            h-9
+            sm:w-10
+            sm:h-10
+            rounded-full
+            bg-black/60
+            hover:bg-black/80
+            backdrop-blur
+            flex
+            items-center
+            justify-center
+            text-white
+            transition
+          "
+        >
+          <X size={18} className="sm:hidden" />
+          <X size={20} className="hidden sm:block" />
+        </button>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-24 sm:-mt-32 lg:-mt-44 relative z-10 pb-32">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-24 sm:-mt-32 lg:-mt-44 relative z-10 pb-20">
 
-  <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
+  <div className="flex flex-col lg:flex-row gap-6 lg:gap-12">
 
     <div className="flex justify-center lg:block shrink-0">
       <img
         src={posterUrl}
         alt={movie.title || movie.name}
         className="
-        w-44
-        sm:w-56
+        w-36
+        sm:w-52
         md:w-64
         lg:w-72
         aspect-2/3
@@ -489,18 +532,18 @@ bg-center"
     </div>
 
     <div className="flex-1 flex flex-col justify-center">
-            <h1 className="text-3xl sm:text-5xl lg:text-6xl xl:text-7xl font-black leading-tight">{movie.title || movie.name}</h1>
+            <h1 className="text-2xl sm:text-4xl lg:text-5xl font-bold leading-tight tracking-tight">{movie.title || movie.name}</h1>
 
-            <div className="flex flex-wrap items-center gap-3 mt-4 mb-6 text-sm sm:text-base">
+            <div className="flex flex-wrap items-center gap-2 sm:gap-3 mt-3 mb-4 sm:mb-6 text-xs sm:text-sm">
               {movie.release_date && (
-                <span className="text-gray-400 text-base">
+                <span className="text-gray-400">
                   {new Date(movie.release_date).getFullYear()}
                 </span>
               )}
               {movie.runtime > 0 && (
                 <>
                   <span className="text-gray-500">·</span>
-                  <span className="text-gray-400 text-base">{movie.runtime} min</span>
+                  <span className="text-gray-400">{movie.runtime} min</span>
                 </>
               )}
               {avgOverall && (
@@ -508,35 +551,39 @@ bg-center"
                   <span className="text-gray-500">·</span>
                   <span className="flex items-center gap-1 text-yellow-400 font-bold">
                     ★ {avgOverall}
-                    <span className="text-gray-500 font-normal text-sm">({reviews.length} reviews)</span>
+                    <span className="text-gray-500 font-normal">({reviews.length} reviews)</span>
                   </span>
                 </>
               )}
             </div>
 
             {movie.genres?.length > 0 && (
-              <div className="flex flex-wrap gap-2 mb-5">
+              <div className="flex flex-wrap gap-2 mb-4 sm:mb-5">
                 {movie.genres.map(g => (
-                  <span key={g.id} className="bg-zinc-800 text-gray-300 text-xs font-medium px-3 py-1 rounded-full border border-zinc-700">
+                  <span key={g.id} className="bg-zinc-800 text-gray-300 text-[10px] sm:text-xs font-medium px-2.5 py-1 rounded-full border border-zinc-700">
                     {g.name}
                   </span>
                 ))}
               </div>
             )}
 
-            <p className="text-gray-300 text-sm sm:text-base lg:text-lg leading-relaxed max-w-3xl mb-8">
+            <p className="text-gray-300 text-sm sm:text-base leading-relaxed max-w-3xl mb-6 sm:mb-8">
               {movie.overview || "No description available."}
             </p>
 
-            <div className="flex flex-col sm:flex-row flex-wrap gap-4">
+            <div className="flex flex-col sm:flex-row flex-wrap gap-3">
               <button className="w-full
 sm:w-auto
 bg-white
 text-black
-px-8
-py-3.5
-rounded-xl
-font-bold
+px-5
+sm:px-7
+py-2.5
+sm:py-3
+rounded-lg
+text-sm
+sm:text-base
+font-semibold
 hover:bg-gray-200
 transition" onClick={watchTrailer}>
                 ▶ Watch Trailer
@@ -546,10 +593,14 @@ sm:w-auto
 bg-red-600
 hover:bg-red-700
 text-white
-px-8
-py-3.5
-rounded-xl
-font-bold
+px-5
+sm:px-7
+py-2.5
+sm:py-3
+rounded-lg
+text-sm
+sm:text-base
+font-semibold
 transition" onClick={addToList}>
                 ❤ Add to List
               </button>
@@ -562,10 +613,14 @@ hover:bg-zinc-700
 border
 border-zinc-700
 text-white
-px-8
-py-3.5
-rounded-xl
-font-bold
+px-5
+sm:px-7
+py-2.5
+sm:py-3
+rounded-lg
+text-sm
+sm:text-base
+font-semibold
 transition"
               >
                 ← Back
@@ -575,18 +630,18 @@ transition"
         </div>
 
         {/* Reviews Section */}
-        <div className="mt-16 sm:mt-20 lg:mt-24 space-y-10">
-          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
-            <h2 className="text-3xl sm:text-4xl font-black">
+        <div className="mt-10 sm:mt-16 lg:mt-20 space-y-6 sm:space-y-8">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 sm:gap-6">
+            <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold">
               Ratings & Reviews
               {reviews.length > 0 && (
-                <span className="ml-3 text-gray-500 font-normal text-xl">({reviews.length})</span>
+                <span className="ml-2 sm:ml-3 text-gray-500 font-normal text-base sm:text-lg">({reviews.length})</span>
               )}
             </h2>
             {isLoggedIn ? (
               <button
                 onClick={() => setState(prev => ({ ...prev, showForm: !prev.showForm }))}
-                className={`self-start sm:self-auto px-6 py-3 rounded-lg font-bold transition-colors text-sm ${
+                className={`self-start sm:self-auto px-4 sm:px-6 py-2 sm:py-2.5 rounded-lg font-semibold transition-colors text-xs sm:text-sm ${
                   showForm
                     ? "bg-zinc-700 hover:bg-zinc-600 text-white border border-zinc-600"
                     : "bg-red-600 hover:bg-red-700 text-white"
@@ -597,7 +652,7 @@ transition"
             ) : (
               <button
                 onClick={() => navigate("/login")}
-                className="self-start sm:self-auto bg-zinc-800 hover:bg-zinc-700 text-gray-300 border border-zinc-700 px-6 py-3 rounded-lg font-semibold text-sm transition-colors"
+                className="self-start sm:self-auto bg-zinc-800 hover:bg-zinc-700 text-gray-300 border border-zinc-700 px-4 sm:px-6 py-2 sm:py-2.5 rounded-lg font-semibold text-xs sm:text-sm transition-colors"
               >
                 Sign in to review
               </button>
@@ -606,7 +661,7 @@ transition"
 
           {showForm && (
             <div>
-              <h3 className="text-xl font-bold text-white mb-4">Your Review</h3>
+              <h3 className="text-base sm:text-lg font-bold text-white mb-3 sm:mb-4">Your Review</h3>
               <ReviewForm
                 movie={movie}
                 mediaType={isTv ? "tv" : "movie"}
@@ -620,7 +675,7 @@ transition"
 
           {editingReview && (
             <div>
-              <h3 className="text-xl font-bold text-white mb-4">Edit Review</h3>
+              <h3 className="text-base sm:text-lg font-bold text-white mb-3 sm:mb-4">Edit Review</h3>
               <ReviewForm
                 movie={movie}
                 mediaType={isTv ? "tv" : "movie"}
@@ -636,7 +691,7 @@ transition"
 
           {showTrailer && (
   <div
-    className="fixed inset-0 bg-black/95 backdrop-blur-md z-9999 flex items-center justify-center p-4"
+    className="fixed inset-0 bg-black/95 backdrop-blur-md z-[9999] flex items-center justify-center p-4"
     onClick={() => setShowTrailer(false)}
   >
     <div
@@ -656,7 +711,7 @@ transition"
           text-white
           text-xl sm:text-2xl
           font-bold
-          z-10000
+          z-[10000]
           flex items-center justify-center
         "
       >
@@ -677,7 +732,7 @@ transition"
           {reviews.length > 0 && <AggregateStats reviews={reviews} />}
 
           {reviews.length > 0 ? (
-            <div className="grid gap-6">
+            <div className="grid gap-4 sm:gap-6">
               {reviews.map(review => (
                 <ReviewCard
                   key={review.id}
@@ -689,10 +744,10 @@ transition"
               ))}
             </div>
           ) : !showForm && (
-            <div className="text-center py-20 border border-dashed border-zinc-800 rounded-2xl">
-              <p className="text-5xl mb-4">🎬</p>
-              <p className="text-gray-400 text-lg font-medium">No reviews yet</p>
-              <p className="text-gray-600 text-sm mt-1">Be the first to share your thoughts on this film.</p>
+            <div className="text-center py-14 sm:py-20 border border-dashed border-zinc-800 rounded-2xl">
+              <p className="text-4xl sm:text-5xl mb-3 sm:mb-4">🎬</p>
+              <p className="text-gray-400 text-sm sm:text-lg font-medium">No reviews yet</p>
+              <p className="text-gray-600 text-xs sm:text-sm mt-1">Be the first to share your thoughts on this film.</p>
             </div>
           )}
         </div>
