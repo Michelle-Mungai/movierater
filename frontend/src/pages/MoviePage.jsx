@@ -207,7 +207,7 @@ sm:space-y-6
             <span className="text-[var(--text-secondary)] text-xs w-24 sm:w-28 shrink-0">{labels[k]}</span>
             <div className="flex-1 bg-[var(--bg-card-hover)] rounded-full h-2">
               <div
-                className="bg-linear-to-r from-red-600 to-yellow-400 h-2 rounded-full transition-all"
+                className="bg-linear-to-r from-[var(--accent)] to-yellow-400 h-2 rounded-full transition-all"
                 style={{ width: `${(avgs[k] / 10) * 100}%` }}
               />
             </div>

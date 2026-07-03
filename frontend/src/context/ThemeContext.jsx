@@ -13,8 +13,8 @@ function getInitialTheme() {
     return stored;
   }
 
-  // Default to dark (Netflix-style) regardless of system preference,
-  // since that's the app's established look.
+  // Default to dark (Burgundy velvet dark theme) regardless of system
+  // preference, since that's the app's established look.
   return "dark";
 }
 

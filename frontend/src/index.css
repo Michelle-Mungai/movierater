@@ -1,38 +1,40 @@
 @import "tailwindcss";
 
 /* ------------------------------------------------------------------ */
-/* Theme tokens                                                       */
-/* Default (no class on <html>) = dark, Netflix-style palette.        */
-/* .light on <html> = light, Prime Video-style palette.                */
+/* Theme tokens — "Burgundy velvet"                                    */
+/* One consistent brand identity throughout — only backgrounds and     */
+/* text shift between dark and light, so the app reads as the same     */
+/* theme no matter which mode is active.                               */
+/* Default (no class on <html>) = dark. .light on <html> = light.      */
 /* Components reference these via bg-[var(--x)] / text-[var(--x)]      */
 /* utility classes so a single toggle re-themes the whole app.         */
 /* ------------------------------------------------------------------ */
 
 :root {
-  --bg-primary: #000000;
-  --bg-secondary: #0a0a0c;
-  --bg-card: #18181b;
-  --bg-card-hover: #27272a;
-  --border-color: #27272a;
-  --text-primary: #ffffff;
-  --text-secondary: #a1a1aa;
-  --text-muted: #71717a;
-  --accent: #e50914;
-  --accent-hover: #b81d24;
-  --input-bg: rgba(24, 24, 27, 0.9);
+  --bg-primary: #150c10;
+  --bg-secondary: #1a0f14;
+  --bg-card: #211318;
+  --bg-card-hover: #2e1a21;
+  --border-color: #3a1f28;
+  --text-primary: #fbf3f5;
+  --text-secondary: #c2a2ac;
+  --text-muted: #85707a;
+  --accent: #b9385a;
+  --accent-hover: #9a2b48;
+  --input-bg: rgba(33, 19, 24, 0.9);
 }
 
 .light {
-  --bg-primary: #f6f7f8;
+  --bg-primary: #fbf5f6;
   --bg-secondary: #ffffff;
   --bg-card: #ffffff;
-  --bg-card-hover: #eef1f1;
-  --border-color: #dde2e2;
-  --text-primary: #0f1111;
-  --text-secondary: #565959;
-  --text-muted: #8a9090;
-  --accent: #00a8e1;
-  --accent-hover: #0089b8;
+  --bg-card-hover: #f5e8eb;
+  --border-color: #ecd8de;
+  --text-primary: #1e0d12;
+  --text-secondary: #7a5865;
+  --text-muted: #a08c94;
+  --accent: #9c1f43;
+  --accent-hover: #7e1837;
   --input-bg: rgba(255, 255, 255, 0.95);
 }
 

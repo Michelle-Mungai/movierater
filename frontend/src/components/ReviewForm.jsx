@@ -280,7 +280,7 @@ export default function ReviewForm({
             resize-none
             focus:outline-none
             focus:ring-2
-            focus:ring-red-600
+            focus:ring-[var(--accent)]
             "
           />
         </div>
@@ -309,7 +309,7 @@ export default function ReviewForm({
             resize-none
             focus:outline-none
             focus:ring-2
-            focus:ring-red-600
+            focus:ring-[var(--accent)]
             "
           />
         </div>
@@ -400,7 +400,7 @@ export default function ReviewForm({
           disabled:cursor-not-allowed
           transition
           shadow-lg
-          shadow-red-900/30
+          shadow-[var(--accent)]/30
           "
         >
           {submitting
