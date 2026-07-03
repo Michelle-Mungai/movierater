@@ -89,7 +89,7 @@ export default function Register() {
               justify-center
               gap-1
               bg-white
-              hover:bg-gray-600
+              hover:bg-gray-200
               text-black
               text-sm
               font-semibold
