@@ -241,10 +241,6 @@ export default function ReviewForm({
             <h3 className="text-sm sm:text-base font-bold text-white">
               Overall Rating
             </h3>
-
-            <p className="text-zinc-500 text-xs">
-              Average of your six ratings above
-            </p>
           </div>
 
           <div className="text-xl sm:text-2xl font-bold text-yellow-400">
@@ -266,7 +262,7 @@ export default function ReviewForm({
           </label>
 
           <textarea
-            rows={4}
+            rows={2}
             value={positives}
             onChange={(e) =>
               setPositives(e.target.value)
@@ -277,7 +273,7 @@ export default function ReviewForm({
             bg-zinc-800
             border border-zinc-700
             rounded-lg
-            p-3
+            p-2
             text-sm
             text-white
             placeholder:text-zinc-500
@@ -295,7 +291,7 @@ export default function ReviewForm({
           </label>
 
           <textarea
-            rows={4}
+            rows={2}
             value={negatives}
             onChange={(e) =>
               setNegatives(e.target.value)
@@ -306,7 +302,7 @@ export default function ReviewForm({
             bg-zinc-800
             border border-zinc-700
             rounded-lg
-            p-3
+            p-2
             text-sm
             text-white
             placeholder:text-zinc-500
@@ -325,12 +321,12 @@ export default function ReviewForm({
         bg-zinc-800
         border border-zinc-700
         rounded-lg
-        p-3
-        sm:p-4
+        p-2
+        sm:p-3
         flex
         items-center
         justify-between
-        gap-4
+        gap-2
         "
       >
         <div>
