@@ -32,35 +32,36 @@ export default function MovieCard({ movie, fullWidth = false }) {
       ${
         fullWidth
           ? "w-full"
-          : "w-36 sm:w-44 md:w-52 lg:w-56 xl:w-60"
+          : "w-28 sm:w-44 md:w-52 lg:w-56 xl:w-60"
       }
 
       transition-transform
       duration-300
-      hover:-translate-y-2
+      hover:-translate-y-1
+      sm:hover:-translate-y-2
       `}
     >
       <div
         className="
         relative
         overflow-hidden
-        rounded-xl
+        rounded-lg
+        sm:rounded-xl
         bg-zinc-900
         shadow-lg
         "
       >
+        {/* FIX: fixed pixel heights (h-52/h-64/h-72/h-80) meant the poster
+            didn't scale with card width, so on denser mobile grids (3+
+            columns) it would look stretched/cropped. aspect-2/3 keeps the
+            correct poster ratio at any card width. */}
         <img
           loading="lazy"
           src={poster}
           alt={title}
           className="
           w-full
-
-          h-52
-          sm:h-64
-          md:h-72
-          lg:h-80
-
+          aspect-2/3
           object-cover
           transition-transform
           duration-500
@@ -91,19 +92,24 @@ export default function MovieCard({ movie, fullWidth = false }) {
           <div
             className="
             absolute
-            top-3
-            left-3
+            top-1.5
+            left-1.5
+            sm:top-3
+            sm:left-3
 
             bg-black/80
             backdrop-blur
 
             text-yellow-400
 
-            text-xs
+            text-[9px]
+            sm:text-xs
             font-semibold
 
-            px-2
-            py-1
+            px-1.5
+            py-0.5
+            sm:px-2
+            sm:py-1
 
             rounded-full
             "
@@ -117,18 +123,22 @@ export default function MovieCard({ movie, fullWidth = false }) {
         <div
           className="
           absolute
-          top-3
-          right-3
+          top-1.5
+          right-1.5
+          sm:top-3
+          sm:right-3
 
           bg-red-600
 
           text-white
 
-          text-[10px]
+          text-[9px]
           sm:text-xs
 
-          px-2
-          py-1
+          px-1.5
+          py-0.5
+          sm:px-2
+          sm:py-1
 
           rounded-full
           font-semibold
@@ -183,14 +193,16 @@ export default function MovieCard({ movie, fullWidth = false }) {
 
       {/* Information */}
 
-      <div className="mt-3">
+      <div className="mt-1.5 sm:mt-3">
         <h3
           className="
           text-white
 
-          font-semibold
+          font-medium
+          sm:font-semibold
 
-          text-sm
+          text-xs
+          sm:text-sm
           md:text-base
 
           line-clamp-1
@@ -201,15 +213,19 @@ export default function MovieCard({ movie, fullWidth = false }) {
 
         <div
           className="
-          mt-1
+          mt-0.5
+          sm:mt-1
 
           flex
           items-center
-          gap-2
+          gap-1.5
+          sm:gap-2
 
-          text-zinc-400
-          text-xs
-          sm:text-sm
+          text-zinc-500
+
+          text-[10px]
+          sm:text-xs
+          md:text-sm
           "
         >
           {year && <span>{year}</span>}
