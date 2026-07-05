@@ -5,6 +5,7 @@ import HeroBanner from "../components/HeroBanner";
 import MovieRow from "../components/MovieRow";
 import RecommendationRow from "../components/RecommendationRow";
 import TopRated from "../components/TopRated";
+import SEO from "../components/SEO";
 
 import api from "../services/api";
 
@@ -147,6 +148,11 @@ export default function Home() {
 
   return (
     <div className="bg-[var(--bg-primary)] min-h-screen">
+      <SEO
+        path="/"
+        description="Discover trending, popular, and top-rated movies and TV shows. Rate, review, and get recommendations tailored to you."
+      />
+
       <Navbar />
 
       <main className="pt-20">

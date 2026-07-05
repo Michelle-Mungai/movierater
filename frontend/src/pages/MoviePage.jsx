@@ -4,6 +4,7 @@ import { X } from "lucide-react";
 import api from "../services/api";
 import toast from "react-hot-toast";
 import ReviewForm from "../components/ReviewForm";
+import SEO from "../components/SEO";
 import { useAuth } from "../context/useAuth";
 
 function ReviewCard({ review, currentUserId, onEdit, onDelete }) {
@@ -420,6 +421,40 @@ useEffect(() => {
     ? (reviews.reduce((s, r) => s + r.overall, 0) / reviews.length).toFixed(1)
     : null;
 
+  const movieTitle = movie.title || movie.name;
+
+  const seoDescription = movie.overview
+    ? movie.overview.length > 155
+      ? `${movie.overview.slice(0, 155).trim()}…`
+      : movie.overview
+    : `Read ratings and reviews for ${movieTitle} on MovieRater.`;
+
+  const seoImage = movie.poster_path
+    ? `https://image.tmdb.org/t/p/w780${movie.poster_path}`
+    : backdropUrl;
+
+  const releaseDate = movie.release_date || movie.first_air_date;
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": isTv ? "TVSeries" : "Movie",
+    name: movieTitle,
+    image: seoImage,
+    description: seoDescription,
+    ...(releaseDate && { datePublished: releaseDate }),
+    ...(movie.genres?.length && {
+      genre: movie.genres.map((g) => g.name),
+    }),
+    ...(avgOverall && {
+      aggregateRating: {
+        "@type": "AggregateRating",
+        ratingValue: avgOverall,
+        bestRating: "10",
+        ratingCount: reviews.length,
+      },
+    }),
+  };
+
   function addToList() {
   // FIXED: guests could previously write straight to localStorage with
   // no auth check. Now unauthenticated users are sent to /login instead.
@@ -465,6 +500,15 @@ useEffect(() => {
 
   return (
     <div className="bg-[var(--bg-primary)] min-h-screen text-[var(--text-primary)]">
+      <SEO
+        title={movieTitle}
+        description={seoDescription}
+        image={seoImage}
+        path={`/${isTv ? "tv" : "movie"}/${id}`}
+        type={isTv ? "video.tv_show" : "video.movie"}
+        jsonLd={jsonLd}
+      />
+
       <div
         className="relative
 h-[35vh]

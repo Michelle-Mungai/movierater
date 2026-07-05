@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import Navbar from "../components/Navbar";
 import MovieCard from "../components/MovieCard";
+import SEO from "../components/SEO";
 import api from "../services/api";
 
 export default function Movies() {
@@ -87,6 +88,12 @@ export default function Movies() {
 
   return (
     <div className="bg-[var(--bg-primary)] min-h-screen">
+      <SEO
+        title="Top Rated Movies"
+        path="/movies"
+        description="Browse the highest-rated movies, see community reviews, and add titles to your watchlist."
+      />
+
       <Navbar />
 
       <main className="pt-24 pb-10 px-4 sm:px-6 lg:px-10">

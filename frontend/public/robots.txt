@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+# Don't index user-specific / auth pages
+Disallow: /dashboard
+Disallow: /mylist
+Disallow: /login
+Disallow: /register
+Disallow: /google-success
+
+Sitemap: https://movierater-ruddy.vercel.app/sitemap.xml

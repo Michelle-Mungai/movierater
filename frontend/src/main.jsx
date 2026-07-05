@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
+import { HelmetProvider } from "react-helmet-async";
 
 import App from "./App";
 import { AuthProvider } from "./context/AuthContext";
@@ -13,6 +14,7 @@ ReactDOM.createRoot(
   document.getElementById("root")
 ).render(
   <React.StrictMode>
+    <HelmetProvider>
     <BrowserRouter>
       <ThemeProvider>
       <AuthProvider>
@@ -46,5 +48,6 @@ ReactDOM.createRoot(
       </AuthProvider>
       </ThemeProvider>
     </BrowserRouter>
+    </HelmetProvider>
   </React.StrictMode>
 );
