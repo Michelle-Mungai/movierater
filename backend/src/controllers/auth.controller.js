@@ -28,6 +28,20 @@ exports.logout = asyncHandler(async (req, res) => {
 exports.googleSuccess = asyncHandler(async (req, res) => {
   const result = await authService.googleLogin(req.user);
 
+  // req.query.state round-trips through Google's OAuth flow untouched,
+  // so this tells us whether the login started from the Android app's
+  // Custom Tab (see auth.routes.js) or from a normal browser tab.
+  const isAndroidApp = req.query.state === "android";
+
+  if (isAndroidApp) {
+    // Custom Tabs run in Chrome's own storage, completely separate from
+    // the app's WebView, so we can't just leave the user here — hand
+    // control back to the app via a deep link carrying the token. The
+    // app's WebView then loads /google-success itself, which writes the
+    // token into ITS OWN localStorage (see MainActivity.kt).
+    return res.redirect(`movierater://auth-callback?token=${result.token}`);
+  }
+
   // FIXED: the frontend route is "/google-success" (see App.jsx /
   // GoogleSuccess.jsx), but this redirected to "/oauth-success", a route
   // that doesn't exist, so Google sign-in always landed on a 404.

@@ -82,8 +82,18 @@ export default function Login() {
       import.meta.env.VITE_API_URL ||
       "http://localhost:5000/api";
 
+    // The Android app's WebView appends "MovieRaterApp" to its user
+    // agent string (see MainActivity.kt) so the site can tell it's
+    // running inside the app rather than a normal mobile browser.
+    const isAndroidApp =
+      navigator.userAgent.includes("MovieRaterApp");
+
+    const platformParam = isAndroidApp
+      ? "?platform=android"
+      : "";
+
     window.location.href =
-      `${apiUrl}/auth/google`;
+      `${apiUrl}/auth/google${platformParam}`;
   }
 
   return (
